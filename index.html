@@ -16,18 +16,18 @@
   <link rel="icon" type="image/png" href="favicon_br.png">
   <link rel="shortcut icon" type="image/png" href="favicon_br.png">
   
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-deep: #06080e;
-      --bg-card: rgba(13, 17, 28, 0.75);
+      --bg-card: rgba(13, 17, 28, 0.8);
       --accent: #00b4ff;
       --telegram: #24a1de;
-      --telegram-grad: linear-gradient(135deg, #24a1de 0%, #1d80b0 100%);
       --kakao: #fee500;
+      --kakao-dark: #3c1e1e;
       --text: #ffffff;
       --subtext: #9eb1cd;
-      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,68 +41,90 @@
       word-break: keep-all;
     }
 
+    /* [기존 기능] 배경 설정 */
     .hero-bg { position: fixed; inset: 0; z-index: -1; background-image: url('background.jpg'); background-size: cover; background-position: center; background-color: #000; }
-    .hero-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(6, 8, 14, 0.6) 0%, rgba(6, 8, 14, 1) 100%); }
+    .hero-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(6, 8, 14, 0.7) 0%, rgba(6, 8, 14, 1) 100%); }
 
     .container { max-width: 600px; margin: 0 auto; padding: 80px 24px 100px; text-align: center; position: relative; }
 
+    /* [기존 기능] 로고 애니메이션 */
     .logo { margin-bottom: 50px; display: inline-block; }
-    .logo img { height: 140px; filter: drop-shadow(0 0 20px rgba(0, 180, 255, 0.3)); animation: pulse 3s infinite ease-in-out; }
-
+    .logo img { height: 140px; filter: drop-shadow(0 0 25px rgba(0, 180, 255, 0.4)); animation: pulse 3s infinite ease-in-out; }
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } }
 
-    h1 { font-size: 34px; font-weight: 700; margin-bottom: 24px; letter-spacing: -1.5px; line-height: 1.2; background: linear-gradient(180deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h1 { font-size: 36px; font-weight: 700; margin-bottom: 24px; letter-spacing: -1.5px; line-height: 1.2; background: linear-gradient(180deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .subtitle { font-size: 19px; color: var(--subtext); margin-bottom: 60px; font-weight: 300; line-height: 1.5; }
 
+    /* 컨택트 섹션 디자인 */
     .contact-container { margin-bottom: 80px; display: flex; flex-direction: column; gap: 30px; text-align: left; }
-    .section-label { font-size: 13px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 12px; padding-left: 5px; }
+    .section-label { font-size: 14px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px; padding-left: 5px; border-left: 3px solid var(--accent); padding-left: 12px; }
 
-    /* 곰돌이 캐릭터 (CSS Drawing) */
-    .bear-icon { width: 60px; height: 50px; position: relative; margin-bottom: 15px; }
-    .bear-face { width: 50px; height: 42px; background: #e9a53d; border-radius: 50% 50% 45% 45%; position: relative; margin: 0 auto; border: 2px solid #3c1e1e; }
-    .ear { width: 16px; height: 16px; background: #e9a53d; border-radius: 50%; border: 2px solid #3c1e1e; position: absolute; top: -4px; }
-    .ear.left { left: -2px; } .ear.right { right: -2px; }
-    .eye { width: 5px; height: 5px; background: #3c1e1e; border-radius: 50%; position: absolute; top: 16px; }
-    .eye.left { left: 14px; } .eye.right { right: 14px; }
-    .nose { width: 10px; height: 7px; background: #fff; border-radius: 50%; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); border: 1px solid #3c1e1e; }
-    .nose::after { content: ''; width: 4px; height: 3px; background: #3c1e1e; border-radius: 50%; position: absolute; top: 1px; left: 2px; }
-
-    /* 카카오 아이디 카드 */
-    .kakao-id-card {
-      background: var(--kakao); color: #1a1a1a; padding: 40px 20px; border-radius: 30px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); border: 2px solid #1a1a1a;
+    /* 카카오 아이디 카드 (캐릭터 비주얼 강화) */
+    .kakao-card {
+      background: var(--kakao); color: var(--kakao-dark); padding: 45px 30px; border-radius: 35px;
+      position: relative; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      display: flex; flex-direction: column; align-items: center; border: 1px solid rgba(255,255,255,0.4);
     }
-    .kakao-id-card .id-t { font-size: 52px; font-weight: 900; letter-spacing: 1px; line-height: 1; font-family: 'Inter'; color: #3c1e1e; }
-    .kakao-id-card .guide-t { font-size: 15px; margin-top: 15px; font-weight: 700; text-align: center; color: #3c1e1e; }
+    
+    /* 캐릭터 데코레이션 */
+    .char-deco { position: absolute; width: 100px; height: 100px; opacity: 0.15; z-index: 0; pointer-events: none; }
+    .char-deco.left { bottom: -20px; left: -20px; transform: rotate(15deg); }
+    .char-deco.right { top: -20px; right: -20px; transform: rotate(-15deg); }
 
-    /* 텔레그램 버튼 (푸르스름한 색감) */
-    .tg-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .kakao-card .character-area {
+      display: flex; gap: 10px; margin-bottom: 15px; position: relative; z-index: 1;
+    }
+    .face-mini { width: 45px; height: 45px; border-radius: 50%; border: 2.5px solid var(--kakao-dark); position: relative; }
+    .ryan { background: #ff9a00; }
+    .apeach { background: #ffc0cb; }
+    .ryan::before, .ryan::after { content: ''; position: absolute; width: 6px; height: 6px; background: var(--kakao-dark); border-radius: 50%; top: 15px; }
+    .ryan::before { left: 10px; } .ryan::after { right: 10px; }
+    .ryan-nose { width: 12px; height: 8px; background: #fff; border-radius: 50%; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); border: 1.5px solid var(--kakao-dark); }
+
+    .kakao-card .id-t { font-size: 58px; font-weight: 900; letter-spacing: 1px; line-height: 1; z-index: 1; }
+    .kakao-card .guide-t { font-size: 15px; margin-top: 15px; font-weight: 700; text-align: center; z-index: 1; color: rgba(60, 30, 30, 0.8); }
+
+    /* 텔레그램 프리미엄 버튼 */
+    .tg-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .btn-tg {
-      height: 70px; font-size: 17px; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 20px; text-decoration: none; font-weight: 700;
-      background: var(--telegram-grad);
-      box-shadow: 0 10px 20px rgba(36, 161, 222, 0.2);
-      transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1);
+      height: 75px; font-size: 17px; color: #fff;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border-radius: 22px; text-decoration: none; font-weight: 700;
+      background: linear-gradient(135deg, rgba(36, 161, 222, 0.2) 0%, rgba(36, 161, 222, 0.05) 100%);
+      border: 1px solid rgba(36, 161, 222, 0.4); backdrop-filter: blur(15px);
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
-    .btn-tg:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(36, 161, 222, 0.4); filter: brightness(1.1); }
+    .btn-tg span { font-size: 13px; font-weight: 400; opacity: 0.7; margin-top: 2px; }
+    .btn-tg:hover {
+      background: var(--telegram); transform: translateY(-7px);
+      box-shadow: 0 20px 40px rgba(36, 161, 222, 0.4); border-color: #fff;
+    }
 
-    /* 기존 정보 카드 유지 */
-    .info-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 28px; padding: 45px 35px; text-align: left; margin-bottom: 30px; backdrop-filter: blur(20px); }
+    /* [기존 기능] 인포 카드 보존 */
+    .info-card {
+      background: var(--bg-card); border: 1px solid var(--card-border);
+      border-radius: 30px; padding: 45px 35px; text-align: left; margin-bottom: 30px;
+      backdrop-filter: blur(20px); transition: 0.3s;
+    }
+    .info-card:hover { border-color: var(--accent); }
     .info-card h3 { font-size: 20px; margin-bottom: 25px; color: var(--accent); font-weight: 700; display: flex; align-items: center; }
     .info-card h3::before { content: ''; display: inline-block; width: 4px; height: 20px; background: var(--accent); margin-right: 12px; border-radius: 2px; }
     .info-card ul { list-style: none; }
     .info-card li { margin-bottom: 18px; font-size: 16.5px; color: #e2e8f0; display: flex; align-items: flex-start; }
     .info-card li::before { content: '→'; margin-right: 15px; color: var(--accent); font-weight: bold; }
 
+    /* 하단 텍스트 및 유의사항 */
     .final-text { font-size: 22px; color: #fff; margin: 90px 0 45px; font-weight: 600; line-height: 1.5; }
-    .disclaimer { font-size: 13px; color: #555c66; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 20px; margin-top: 100px; text-align: left; line-height: 1.8; border: 1px solid rgba(255,255,255,0.03); }
+    .disclaimer { font-size: 13px; color: #555c66; background: rgba(0,0,0,0.5); padding: 25px; border-radius: 20px; margin-top: 100px; text-align: left; line-height: 1.8; border: 1px solid rgba(255,255,255,0.03); }
 
     .footer { margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 13px; color: #4a5568; }
     .footer-info { margin-top: 20px; line-height: 2; }
 
-    @media (max-width: 480px) { h1 { font-size: 28px; } .kakao-id-card .id-t { font-size: 42px; } .tg-wrapper { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) {
+      h1 { font-size: 28px; }
+      .kakao-card .id-t { font-size: 48px; }
+      .tg-wrapper { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -115,29 +137,37 @@
     </div>
 
     <h1>데이터 기반 주식 분석 플랫폼</h1>
-    <p class="subtitle">시장의 흐름을 가장 먼저 확인하고<br>최적의 투자 전략을 수립하세요.</p>
+    <p class="subtitle">시장의 파동을 데이터로 읽어내는 가장 확실한 방법<br>BlackLabs Insight와 함께하십시오.</p>
 
     <div class="contact-container">
       <div>
         <div class="section-label">KakaoTalk ID</div>
-        <div class="kakao-id-card">
-          <div class="bear-icon">
-            <div class="ear left"></div><div class="ear right"></div>
-            <div class="bear-face">
-              <div class="eye left"></div><div class="eye right"></div>
-              <div class="nose"></div>
+        <div class="kakao-card">
+          <div class="character-area">
+            <div class="face-mini ryan">
+              <div class="ryan-nose"></div>
             </div>
+            <div class="face-mini apeach" style="transform: scale(0.9); top: 5px;"></div>
           </div>
           <span class="id-t">9279q</span>
-          <span class="guide-t">카카오톡 검색창에 위 아이디를 검색하여<br>친구 추가 후 문의를 남겨주세요.</span>
+          <span class="guide-t">카톡 검색창에서 위 아이디를 검색하신 후<br>상담사에게 메시지를 남겨주세요.</span>
+          
+          <div class="char-deco left">🦁</div>
+          <div class="char-deco right">🍑</div>
         </div>
       </div>
 
       <div>
         <div class="section-label">Direct Telegram</div>
         <div class="tg-wrapper">
-          <a href="https://t.me/syk345" target="_blank" class="btn-tg">상담사 syk345</a>
-          <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn-tg">상담사 Noeul</a>
+          <a href="https://t.me/syk345" target="_blank" class="btn-tg">
+            상담사 syk345
+            <span>실시간 1:1 채팅 연결</span>
+          </a>
+          <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn-tg">
+            상담사 Noeul
+            <span>심층 전략 상담 연결</span>
+          </a>
         </div>
       </div>
     </div>
@@ -147,7 +177,7 @@
       <ul>
         <li>실시간 글로벌 마켓 데이터 심층 분석</li>
         <li>데이터 기반 업종별 핵심 테마 추출</li>
-        <li>기관급 데일리 분석 리포트 제공</li>
+        <li>기관급 전문가 데일리 분석 리포트 제공</li>
       </ul>
     </div>
 
@@ -155,7 +185,7 @@
       <h3 style="color: #ed8936;">Core Strategy</h3>
       <ul style="--accent: #ed8936;">
         <li>왜곡 없는 객관적 지표 중심 인사이트</li>
-        <li>복잡한 시장 정보의 데이터 시각화</li>
+        <li>복잡한 시장 정보의 명확한 데이터 시각화</li>
         <li>변동성 장세 대응 실시간 전략 지원</li>
       </ul>
     </div>
@@ -163,8 +193,8 @@
     <p class="final-text">검증된 분석 데이터와 함께<br>성공적인 투자 전략을 시작하세요.</p>
 
     <div style="max-width: 450px; margin: 0 auto;">
-        <a href="https://t.me/syk345" target="_blank" class="btn-tg" style="height: 68px; font-size: 19px;">
-            텔레그램 1:1 상담 바로가기
+        <a href="https://t.me/syk345" target="_blank" class="btn-tg" style="height: 70px; font-size: 20px; background: var(--telegram); border:none;">
+            상담사에게 문의하기 (Telegram)
         </a>
     </div>
 
@@ -177,7 +207,8 @@
         <a href="terms.html">이용약관</a> | <a href="privacy.html">개인정보처리방침</a>
       </div>
       <div class="footer-info">
-        고객센터: 텔레그램 및 카카오톡 상담 안내<br>
+        고객센터: 텔레그램 및 카카오톡 상담사 상시 대기<br>
+        운영시간: 평일 09:00 - 18:00 (공휴일 제외)<br>
         Copyright © BlackLabs Insight. All rights reserved.
       </div>
     </div>
