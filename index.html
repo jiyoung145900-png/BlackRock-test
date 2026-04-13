@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <meta http-equiv="refresh" content="0.1; url=intent://buly.kr/CWvyQad#Intent;scheme=https;package=com.android.chrome;end">
+  
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085291008"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,85 +16,39 @@
   <title>BlackLabs Insight</title>
   
   <style>
-    :root { --bg-deep: #06080e; --bg-card: rgba(13, 17, 28, 0.75); --accent: #00b4ff; --text: #ffffff; --subtext: #9eb1cd; --kakao: #fee500; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Noto Sans KR', sans-serif; background-color: var(--bg-deep); color: var(--text); line-height: 1.6; text-align: center; }
-    .hero-bg { position: fixed; inset: 0; z-index: -1; background-image: url('background.jpg'); background-size: cover; background-position: center; background-color: #000; }
-    .hero-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at center, rgba(6, 8, 14, 0.7) 0%, rgba(6, 8, 14, 0.98) 100%); }
-    .container { max-width: 600px; margin: 0 auto; padding: 80px 24px; position: relative; }
-    .logo img { height: 140px; margin-bottom: 50px; }
-    h1 { font-size: 34px; font-weight: 700; margin-bottom: 24px; }
-    .btn-group { margin-bottom: 80px; }
-    .btn { display: flex; width: 100%; height: 68px; margin: 16px auto; border-radius: 18px; font-size: 19px; font-weight: 700; align-items: center; justify-content: center; text-decoration: none; border: none; cursor: pointer; transition: 0.3s; }
-    .kakao { background: var(--kakao); color: #000; }
-    .telegram { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.15); }
-    .info-card { background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 28px; padding: 40px; text-align: left; margin-bottom: 30px; backdrop-filter: blur(20px); }
-    .disclaimer { font-size: 13px; color: #555c66; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; margin-top: 100px; text-align: left; }
+    :root { --bg-deep: #06080e; --accent: #00b4ff; --text: #ffffff; --kakao: #fee500; }
+    body { font-family: sans-serif; background-color: var(--bg-deep); color: var(--text); margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+    .bridge-card { background: rgba(13, 17, 28, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 40px 20px; width: 90%; max-width: 400px; text-align: center; backdrop-filter: blur(20px); }
+    .btn { display: flex; width: 100%; height: 60px; border-radius: 15px; font-size: 18px; font-weight: bold; align-items: center; justify-content: center; text-decoration: none; border: none; cursor: pointer; margin-top: 20px; background: var(--kakao); color: #000; }
   </style>
 </head>
 <body>
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  
-  <div class="container">
-    <div class="logo"><img src="logo.png" alt="BlackLabs Logo"></div>
-    <h1>데이터 기반 주식 분석 플랫폼</h1>
-    <p style="color:var(--subtext); margin-bottom:60px;">시장의 흐름을 가장 먼저 확인하세요.</p>
-
-    <div class="btn-group">
-      <button onclick="goKakao()" class="btn kakao">카카오톡 실시간 리포트 신청</button>
-      <button onclick="goTelegram()" class="btn telegram">텔레그램 공식 채널 입장</button>
-    </div>
-
-    <div class="info-card">
-      <h3 style="color:var(--accent); margin-bottom:20px;">Premium Insight</h3>
-      <ul style="list-style:none; color:#e2e8f0;">
-        <li style="margin-bottom:10px;">✓ 실시간 글로벌 마켓 데이터 심층 분석</li>
-        <li style="margin-bottom:10px;">✓ 데이터 기반 업종별 핵심 테마 분석</li>
-        <li>✓ 매일 업데이트되는 전문가 데일리 리포트</li>
-      </ul>
-    </div>
-
-    <button onclick="goKakao()" class="btn kakao" style="max-width:400px; margin:0 auto;">카카오톡 상담 시작하기</button>
-
-    <div class="disclaimer">※ 투자 유의사항: 본 플랫폼에서 제공하는 정보는 투자 참고 자료이며, 투자 결과에 대한 책임은 본인에게 있습니다.</div>
+  <div class="bridge-card">
+    <div style="margin-bottom: 20px; color: var(--accent); font-weight: bold;">연결 중...</div>
+    <div style="font-size: 15px; color: #9eb1cd;">화면이 멈춰있다면 아래 버튼을 눌러주세요.</div>
+    <button onclick="forceExit()" class="btn">카카오톡 상담 시작</button>
   </div>
 
   <script>
-    // 카카오톡 연결 브릿지 (사용자님이 말씀하신 buly 링크 적용)
-    function goKakao() {
-        var targetUrl = "https://buly.kr/CWvyQad";
-        var userAgent = navigator.userAgent.toLowerCase();
-        
-        if (/iphone|ipad|ipod|android/.test(userAgent)) {
-            if (userAgent.indexOf("android") > -1) {
-                // 안드로이드: 구글 앱 인앱 브라우저 탈출용 Intent 주소 생성
-                var intentUrl = "intent://" + targetUrl.replace(/https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
-                location.href = intentUrl;
-                // Intent 실패 시 0.8초 뒤 buly 링크로 직접 이동
-                setTimeout(function() { location.href = targetUrl; }, 800);
-            } else {
-                // 아이폰: 인앱 브라우저 차단을 피하기 위해 현재 창 리다이렉트
-                location.href = targetUrl;
-            }
-        } else {
-            // PC: 새 창 열기
-            window.open(targetUrl, '_blank');
-        }
+    function forceExit() {
+      var target = "https://buly.kr/CWvyQad";
+      var userAgent = navigator.userAgent.toLowerCase();
+
+      if (userAgent.indexOf("android") > -1) {
+        // 안드로이드: 구글 앱 브라우저를 강제로 죽이고 크롬을 새로 실행
+        location.href = "intent://" + target.replace(/https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+      } else if (userAgent.indexOf("iphone") > -1 || userAgent.indexOf("ipad") > -1) {
+        // 아이폰: 인앱 브라우저에서 바로 buly 링크 실행
+        location.href = target;
+      } else {
+        window.location.href = target;
+      }
     }
 
-    // 텔레그램 연결 브릿지
-    function goTelegram() {
-        var tgUrl = "https://t.me/syk345";
-        var tgApp = "tg://resolve?domain=syk345";
-        
-        if (/iphone|ipad|ipod|android/.test(navigator.userAgent)) {
-            location.href = tgApp;
-            setTimeout(function() { location.href = tgUrl; }, 800);
-        } else {
-            window.open(tgUrl, '_blank');
-        }
-    }
+    // 페이지 접속하자마자 실행 시도
+    window.onload = function() {
+      setTimeout(forceExit, 100);
+    };
   </script>
 </body>
 </html>
