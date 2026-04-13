@@ -1,4 +1,4 @@
-https://buly.kr/CWvyQad<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085291008"></script>
@@ -26,6 +26,7 @@ https://buly.kr/CWvyQad<!DOCTYPE html>
       --kakao: #fee500;
       --text: #ffffff;
       --subtext: #9eb1cd;
+      --card-border: rgba(255, 255, 255, 0.08);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -48,7 +49,7 @@ https://buly.kr/CWvyQad<!DOCTYPE html>
 
     .hero-overlay {
       position: fixed; inset: 0; z-index: -1;
-      background: radial-gradient(circle at center, rgba(6, 8, 14, 0.7) 0%, rgba(6, 8, 14, 0.98) 100%);
+      background: radial-gradient(circle at 50% 50%, rgba(6, 8, 14, 0.6) 0%, rgba(6, 8, 14, 1) 100%);
     }
 
     .container {
@@ -57,53 +58,132 @@ https://buly.kr/CWvyQad<!DOCTYPE html>
       position: relative;
     }
 
-    .logo { margin-bottom: 50px; }
-    .logo img { height: 140px; filter: drop-shadow(0 10px 30px rgba(0, 180, 255, 0.2)); }
+    .logo { margin-bottom: 50px; display: inline-block; }
+    .logo img {
+      height: 140px;
+      filter: drop-shadow(0 0 20px rgba(0, 180, 255, 0.3));
+      animation: pulse 3s infinite ease-in-out;
+    }
 
-    h1 { font-size: 34px; font-weight: 700; margin-bottom: 24px; letter-spacing: -1.5px; }
-    .subtitle { font-size: 19px; color: var(--subtext); margin-bottom: 60px; font-weight: 300; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(0.98); }
+    }
 
-    /* 버튼 섹션 스타일 */
-    .btn-group { margin-bottom: 60px; }
+    h1 {
+      font-size: 34px; font-weight: 700; margin-bottom: 24px;
+      letter-spacing: -1.5px; line-height: 1.2;
+      background: linear-gradient(180deg, #fff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 19px; color: var(--subtext); margin-bottom: 60px;
+      font-weight: 300; line-height: 1.5;
+    }
+
+    /* 컨택트 섹션 - 간지 포인트 */
+    .contact-container {
+      margin-bottom: 80px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
     .btn {
-      display: flex; width: 100%; height: 68px;
-      margin: 12px auto; border-radius: 18px;
-      font-size: 18px; font-weight: 700;
-      align-items: center; justify-content: center;
-      transition: all 0.3s ease; text-decoration: none;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; border-radius: 20px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none; font-weight: 700; position: relative;
+      overflow: hidden;
     }
-    .btn:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-    .btn-kakao { background: var(--kakao); color: #000; }
-    .btn-tg { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); }
-    
-    .tg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-    .btn-tg-small { height: 55px; font-size: 15px; margin: 0; }
+    /* 카카오 버튼 전용 */
+    .btn-kakao {
+      height: 75px; background: var(--kakao); color: #000;
+      flex-direction: column; border: none;
+    }
+    .btn-kakao:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(254, 229, 0, 0.2); }
+    .btn-kakao .m-text { font-size: 19px; margin-bottom: 2px; }
+    .btn-kakao .s-text { font-size: 12px; font-weight: 400; opacity: 0.8; }
 
-    .section-title { font-size: 14px; color: var(--accent); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    /* 텔레그램 그리드 */
+    .tg-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .btn-tg {
+      height: 65px; font-size: 16px; color: #fff;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(15px);
+    }
+    .btn-tg:hover {
+      background: rgba(0, 136, 204, 0.1);
+      border-color: var(--telegram);
+      color: var(--telegram);
+      transform: translateY(-5px);
+    }
 
-    /* 카드 스타일 */
+    .section-label {
+      font-size: 13px; color: var(--accent); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 8px; text-align: left; padding-left: 5px;
+    }
+
+    /* 인포 카드 */
     .info-card {
-      background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 28px; padding: 40px 30px;
-      text-align: left; margin-bottom: 25px; backdrop-filter: blur(20px);
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 28px; padding: 45px 35px;
+      text-align: left; margin-bottom: 30px;
+      backdrop-filter: blur(20px);
+      transition: 0.3s;
     }
-    .info-card h3 { font-size: 20px; margin-bottom: 20px; color: var(--accent); }
+    .info-card:hover { border-color: rgba(0, 180, 255, 0.3); }
+
+    .info-card h3 {
+      font-size: 20px; margin-bottom: 25px;
+      color: var(--accent); font-weight: 700;
+      display: flex; align-items: center;
+    }
+    .info-card h3::before {
+      content: ''; display: inline-block; width: 4px; height: 20px;
+      background: var(--accent); margin-right: 12px; border-radius: 2px;
+    }
+
     .info-card ul { list-style: none; }
-    .info-card li { margin-bottom: 15px; font-size: 16px; color: #e2e8f0; display: flex; }
-    .info-card li::before { content: '✓'; margin-right: 12px; color: var(--accent); font-weight: bold; }
+    .info-card li {
+      margin-bottom: 18px; font-size: 16.5px;
+      color: #e2e8f0; display: flex; align-items: flex-start;
+    }
+    .info-card li::before {
+      content: '→'; margin-right: 15px; color: var(--accent); font-weight: bold;
+    }
+
+    .final-text {
+      font-size: 22px; color: #fff; margin: 90px 0 45px;
+      font-weight: 600; line-height: 1.5;
+    }
 
     .disclaimer {
-      font-size: 12px; color: #555c66; background: rgba(0,0,0,0.3);
-      padding: 20px; border-radius: 15px; margin-top: 80px; text-align: left; line-height: 1.8;
+      font-size: 13px; color: #555c66; background: rgba(0,0,0,0.4);
+      padding: 25px; border-radius: 20px; margin-top: 100px;
+      text-align: left; line-height: 1.8; border: 1px solid rgba(255,255,255,0.03);
     }
 
-    .footer { margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: #4a5568; }
+    .footer {
+      margin-top: 50px; padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px; color: #4a5568;
+    }
+    .footer a { color: #667eea; text-decoration: none; margin: 0 10px; }
+    .footer-info { margin-top: 20px; line-height: 2; }
 
     @media (max-width: 480px) {
+      .container { padding: 60px 20px; }
       h1 { font-size: 28px; }
       .subtitle { font-size: 17px; }
       .logo img { height: 110px; }
+      .tg-wrapper { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -117,18 +197,26 @@ https://buly.kr/CWvyQad<!DOCTYPE html>
     </div>
 
     <h1>데이터 기반 주식 분석 플랫폼</h1>
-    <p class="subtitle">시장의 흐름을 가장 먼저 확인하고<br>최적의 투자 전략을 수립하세요.</p>
+    <p class="subtitle">
+      차원이 다른 데이터 정밀 분석으로<br>
+      시장의 변곡점을 가장 먼저 선점하세요.
+    </p>
 
-    <div class="btn-group">
-      <div class="section-title">KakaoTalk Search</div>
-      <a href="https://buly.kr/CWvyQad" target="_blank" class="btn btn-kakao">
-        카카오톡 아이디 검색 및 확인
-      </a>
+    <div class="contact-container">
+      <div>
+        <div class="section-label">KakaoTalk Service</div>
+        <a href="https://buly.kr/CWvyQad" target="_blank" class="btn btn-kakao">
+          <span class="m-text">카톡 아이디 추가 후 문의하기</span>
+          <span class="s-text">클릭 시 친구추가 페이지로 연결됩니다</span>
+        </a>
+      </div>
 
-      <div class="section-title" style="margin-top: 40px;">Telegram Support</div>
-      <div class="tg-grid">
-        <a href="https://t.me/syk345" target="_blank" class="btn btn-tg btn-tg-small">상담원 syk345</a>
-        <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn btn-tg btn-tg-small">상담원 Noeul</a>
+      <div style="margin-top: 20px;">
+        <div class="section-label">Direct Telegram</div>
+        <div class="tg-wrapper">
+          <a href="https://t.me/syk345" target="_blank" class="btn btn-tg">전문가 syk345</a>
+          <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn btn-tg">전문가 Noeul</a>
+        </div>
       </div>
     </div>
 
@@ -136,17 +224,26 @@ https://buly.kr/CWvyQad<!DOCTYPE html>
       <h3>Premium Insight</h3>
       <ul>
         <li>실시간 글로벌 마켓 데이터 심층 분석</li>
-        <li>데이터 기반 업종별 핵심 테마 분석</li>
-        <li>매일 업데이트되는 전문가 데일리 리포트</li>
+        <li>데이터 기반 업종별 핵심 테마 추출</li>
+        <li>기관급 전문가 데일리 분석 리포트 제공</li>
       </ul>
     </div>
 
     <div class="info-card">
       <h3 style="color: #ed8936;">Core Strategy</h3>
-      <ul>
-        <li>객관적인 지표 중심의 투자 인사이트</li>
+      <ul style="--accent: #ed8936;">
+        <li>왜곡 없는 객관적 지표 중심 인사이트</li>
         <li>복잡한 시장 정보의 명확한 데이터 시각화</li>
+        <li>변동성 장세 대응 실시간 전략 지원</li>
       </ul>
+    </div>
+
+    <p class="final-text">검증된 분석 데이터와 함께<br>성공적인 투자 전략을 시작하세요.</p>
+
+    <div style="max-width: 450px; margin: 0 auto;">
+        <a href="https://t.me/syk345" target="_blank" class="btn" style="background: var(--accent); color: #000; height: 68px; font-size: 19px;">
+            지금 바로 1:1 상담 시작하기
+        </a>
     </div>
 
     <div class="disclaimer">
@@ -155,10 +252,12 @@ https://buly.kr/CWvyQad<!DOCTYPE html>
 
     <div class="footer">
       <div class="footer-links">
-        <a href="terms.html">이용약관</a> | <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a> | 
+        <a href="privacy.html">개인정보처리방침</a>
       </div>
       <div class="footer-info">
-        고객센터: 텔레그램 및 카카오톡 검색 지원<br>
+        고객센터: 텔레그램 및 카카오톡 실시간 상담<br>
+        운영시간: 평일 09:00 - 18:00 (공휴일 제외)<br>
         Copyright © BlackLabs Insight. All rights reserved.
       </div>
     </div>
