@@ -11,26 +11,26 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlackLabs Insight</title>
+  <title>BlackLabs Insight | 데이터 분석 주식 플랫폼</title>
   
   <link rel="icon" type="image/png" href="favicon_br.png">
   <link rel="shortcut icon" type="image/png" href="favicon_br.png">
   
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-deep: #06080e;
-      --bg-card: rgba(13, 17, 28, 0.8);
+      --bg-deep: #04060b;
+      --bg-card: rgba(13, 17, 28, 0.85);
       --accent: #00b4ff;
       --telegram: #24a1de;
       --kakao: #fee500;
       --kakao-dark: #3c1e1e;
       --text: #ffffff;
       --subtext: #9eb1cd;
-      --card-border: rgba(255, 255, 255, 0.1);
+      --border-light: rgba(255, 255, 255, 0.12);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
     body {
       font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -41,99 +41,81 @@
       word-break: keep-all;
     }
 
-    /* [기존 기능 보존] 배경 설정 */
-    .hero-bg { position: fixed; inset: 0; z-index: -1; background-image: url('background.jpg'); background-size: cover; background-position: center; background-color: #000; }
-    .hero-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(6, 8, 14, 0.7) 0%, rgba(6, 8, 14, 1) 100%); }
+    /* [기능 강화] 다이내믹 배경 애니메이션 */
+    .hero-bg { position: fixed; inset: 0; z-index: -1; background-image: url('background.jpg'); background-size: cover; background-position: center; }
+    .hero-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(4, 6, 11, 0.6) 0%, rgba(4, 6, 11, 1) 100%); }
 
-    .container { max-width: 600px; margin: 0 auto; padding: 80px 24px 100px; text-align: center; position: relative; }
+    .container { max-width: 620px; margin: 0 auto; padding: 80px 24px 120px; text-align: center; position: relative; }
 
-    /* [기존 기능 보존] 로고 애니메이션 */
+    /* [기능 유지] 로고 펄스 애니메이션 */
     .logo { margin-bottom: 50px; display: inline-block; }
-    .logo img { height: 140px; filter: drop-shadow(0 0 25px rgba(0, 180, 255, 0.4)); animation: pulse 3s infinite ease-in-out; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } }
+    .logo img { height: 140px; filter: drop-shadow(0 0 30px rgba(0, 180, 255, 0.45)); animation: pulse 3s infinite ease-in-out; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.96); opacity: 0.85; } }
 
-    h1 { font-size: 36px; font-weight: 700; margin-bottom: 24px; letter-spacing: -1.5px; line-height: 1.2; background: linear-gradient(180deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .subtitle { font-size: 19px; color: var(--subtext); margin-bottom: 60px; font-weight: 300; line-height: 1.5; }
+    h1 { font-size: 38px; font-weight: 900; margin-bottom: 24px; letter-spacing: -2px; line-height: 1.25; background: linear-gradient(180deg, #ffffff 0%, #7db9ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { font-size: 20px; color: var(--subtext); margin-bottom: 70px; font-weight: 300; letter-spacing: -0.5px; }
 
-    /* 컨택트 섹션 디자인 (퀄리티 강화) */
-    .contact-container { margin-bottom: 80px; display: flex; flex-direction: column; gap: 30px; text-align: left; }
-    .section-label { font-size: 14px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px; padding-left: 5px; border-left: 3px solid var(--accent); padding-left: 12px; }
+    /* --- [핵심 기능] 상담 채널 섹션 --- */
+    .contact-wrapper { display: flex; flex-direction: column; gap: 35px; margin-bottom: 80px; text-align: left; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+    .section-header .line { flex-grow: 1; height: 1px; background: var(--border-light); }
+    .section-header span { font-size: 13px; font-weight: 800; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; }
 
-    /* 카카오 프렌즈 카드 (프렌즈 멤버 이미지 반영) */
+    /* [비주얼 극대화] 카카오 프렌즈 카드 */
     .kakao-card {
-      background: var(--kakao); color: var(--kakao-dark); padding: 45px 30px; border-radius: 35px;
-      position: relative; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      background: var(--kakao); color: var(--kakao-dark); padding: 50px 30px; border-radius: 40px;
+      position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.6);
       display: flex; flex-direction: column; align-items: center; border: 1px solid rgba(255,255,255,0.4);
     }
     
-    /* 캐릭터 배경 데코레이션 */
-    .char-deco { position: absolute; width: 90px; height: 90px; opacity: 0.1; z-index: 0; pointer-events: none; }
-    .char-deco.left { bottom: -20px; left: -20px; transform: rotate(15deg); }
-    .char-deco.right { top: -20px; right: -20px; transform: rotate(-15deg); }
+    /* 캐릭터 구현부 (CSS + 이모지 조합으로 이미지 느낌 극대화) */
+    .friends-group { display: flex; align-items: flex-end; justify-content: center; gap: -15px; margin-bottom: 20px; position: relative; }
+    .friend-circle { width: 55px; height: 55px; border-radius: 50%; border: 3px solid var(--kakao-dark); display: flex; align-items: center; justify-content: center; font-size: 28px; background: #fff; box-shadow: 4px 4px 0 rgba(0,0,0,0.1); transition: 0.3s; position: relative; }
+    .friend-circle:nth-child(1) { background: #ff9a00; transform: rotate(-10deg); z-index: 3; } /* 라이언 */
+    .friend-circle:nth-child(2) { background: #ffc0cb; transform: rotate(5deg) translateY(-10px); z-index: 2; } /* 어피치 */
+    .friend-circle:nth-child(3) { background: #fee500; transform: rotate(15deg); z-index: 1; } /* 무지 */
+    .friend-circle:hover { transform: scale(1.1) translateY(-5px) rotate(0deg); z-index: 10; }
 
-    /* 미니 페이스 캐릭터 조합 (CSS Drawing 강화) */
-    .kakao-card .character-area {
-      display: flex; gap: 10px; margin-bottom: 15px; position: relative; z-index: 1;
-    }
-    .face-mini { width: 45px; height: 45px; border-radius: 50%; border: 2.5px solid var(--kakao-dark); position: relative; }
-    
-    /* 라이언 (Ryan) */
-    .ryan { background: #ff9a00; }
-    .ryan::before, .ryan::after { content: ''; position: absolute; width: 6px; height: 6px; background: var(--kakao-dark); border-radius: 50%; top: 15px; }
-    .ryan::before { left: 10px; } .ryan::after { right: 10px; }
-    .ryan-nose { width: 12px; height: 8px; background: #fff; border-radius: 50%; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); border: 1.5px solid var(--kakao-dark); }
-    
-    /* 어피치 (Apeach) */
-    .apeach { background: #ffc0cb; position: relative; }
-    .apeach::before { content: '🍑'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 22px; }
+    .kakao-card .id-display { font-size: 64px; font-weight: 950; letter-spacing: 2px; line-height: 1; font-family: 'Inter', sans-serif; margin-bottom: 15px; }
+    .kakao-card .guide-text { font-size: 16px; font-weight: 700; text-align: center; color: rgba(60, 30, 30, 0.85); line-height: 1.5; }
 
-    /* 무지 (Muzi) - 주신 이미지 기반 추가 */
-    .muzi { background: #fee500; }
-    .muzi-hood { width: 20px; height: 20px; background: #fff; border: 2px solid var(--kakao-dark); border-radius: 50%; position: absolute; bottom: 1px; left: 1px; }
-
-    .kakao-card .id-t { font-size: 58px; font-weight: 900; letter-spacing: 1px; line-height: 1; z-index: 1; }
-    .kakao-card .guide-t { font-size: 15px; margin-top: 15px; font-weight: 700; text-align: center; z-index: 1; color: rgba(60, 30, 30, 0.8); }
-
-    /* 텔레그램 프리미엄 버튼 (비주얼 강화) */
-    .tg-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    /* [비주얼 극대화] 텔레그램 프리미엄 버튼 */
+    .tg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .btn-tg {
-      height: 75px; font-size: 17px; color: #fff;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      border-radius: 22px; text-decoration: none; font-weight: 700;
-      background: linear-gradient(135deg, rgba(36, 161, 222, 0.2) 0%, rgba(36, 161, 222, 0.05) 100%);
-      border: 1px solid rgba(36, 161, 222, 0.4); backdrop-filter: blur(15px);
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      height: 80px; text-decoration: none; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(145deg, rgba(36, 161, 222, 0.25) 0%, rgba(36, 161, 222, 0.05) 100%);
+      border: 1px solid rgba(36, 161, 222, 0.5); backdrop-filter: blur(20px); transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
     }
-    .btn-tg span { font-size: 13px; font-weight: 400; opacity: 0.7; margin-top: 2px; }
-    .btn-tg:hover {
-      background: var(--telegram); transform: translateY(-7px);
-      box-shadow: 0 20px 40px rgba(36, 161, 222, 0.4); border-color: #fff;
-    }
+    .btn-tg .name { color: #fff; font-size: 18px; font-weight: 800; }
+    .btn-tg .role { color: var(--accent); font-size: 12px; font-weight: 600; margin-top: 4px; opacity: 0.8; letter-spacing: 1px; }
+    .btn-tg:hover { background: var(--telegram); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(36, 161, 222, 0.45); border-color: #fff; }
 
-    /* [기존 기능 보존] 인포 카드 상세 보존 */
+    /* [기능 보존] 상세 정보 카드 */
     .info-card {
-      background: var(--bg-card); border: 1px solid var(--card-border);
-      border-radius: 30px; padding: 45px 35px; text-align: left; margin-bottom: 30px;
-      backdrop-filter: blur(20px); transition: 0.3s;
+      background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 35px;
+      padding: 50px 40px; text-align: left; margin-bottom: 30px; backdrop-filter: blur(30px);
+      transition: all 0.4s;
     }
-    .info-card:hover { border-color: var(--accent); }
-    .info-card h3 { font-size: 20px; margin-bottom: 25px; color: var(--accent); font-weight: 700; display: flex; align-items: center; }
-    .info-card h3::before { content: ''; display: inline-block; width: 4px; height: 20px; background: var(--accent); margin-right: 12px; border-radius: 2px; }
+    .info-card:hover { border-color: var(--accent); transform: scale(1.02); }
+    .info-card h3 { font-size: 22px; margin-bottom: 30px; color: var(--accent); font-weight: 900; display: flex; align-items: center; gap: 15px; }
+    .info-card h3::before { content: ''; width: 5px; height: 24px; background: var(--accent); border-radius: 10px; }
     .info-card ul { list-style: none; }
-    .info-card li { margin-bottom: 18px; font-size: 16.5px; color: #e2e8f0; display: flex; align-items: flex-start; }
-    .info-card li::before { content: '→'; margin-right: 15px; color: var(--accent); font-weight: bold; }
+    .info-card li { margin-bottom: 20px; font-size: 17.5px; color: #e2e8f0; display: flex; align-items: flex-start; gap: 15px; }
+    .info-card li::before { content: '✓'; color: var(--accent); font-weight: 900; }
 
-    /* 하단 유의사항 및 푸터 상세 보존 */
-    .final-text { font-size: 22px; color: #fff; margin: 90px 0 45px; font-weight: 600; line-height: 1.5; }
-    .disclaimer { font-size: 13px; color: #555c66; background: rgba(0,0,0,0.5); padding: 25px; border-radius: 20px; margin-top: 100px; text-align: left; line-height: 1.8; border: 1px solid rgba(255,255,255,0.03); }
+    .final-cta { font-size: 24px; color: #fff; margin: 100px 0 50px; font-weight: 800; line-height: 1.5; }
 
-    .footer { margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 13px; color: #4a5568; }
-    .footer-info { margin-top: 20px; line-height: 2; }
+    /* [기능 보존] 유의사항 및 푸터 */
+    .disclaimer { font-size: 13.5px; color: #616e85; background: rgba(0,0,0,0.5); padding: 30px; border-radius: 25px; margin-top: 100px; text-align: left; line-height: 1.8; border: 1px solid var(--border-light); }
+    .footer { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-light); font-size: 13px; color: #4a5568; }
+    .footer-links { margin-bottom: 20px; }
+    .footer-links a { color: #667eea; text-decoration: none; margin: 0 12px; font-weight: 600; }
 
     @media (max-width: 480px) {
-      h1 { font-size: 28px; }
-      .kakao-card .id-t { font-size: 48px; }
-      .tg-wrapper { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+      .kakao-card .id-display { font-size: 52px; }
+      .tg-grid { grid-template-columns: 1fr; }
+      .container { padding: 60px 20px; }
     }
   </style>
 </head>
@@ -146,42 +128,34 @@
       <img src="logo.png" alt="BlackLabs Logo">
     </div>
 
-    <h1>데이터 기반 주식 분석 플랫폼</h1>
-    <p class="subtitle">시장의 파동을 데이터로 읽어내는 가장 확실한 방법<br>BlackLabs Insight와 함께하십시오.</p>
+    <h1>데이터 기반<br>주식 분석 플랫폼</h1>
+    <p class="subtitle">시장의 압도적인 우위를 점하는 데이터 인사이트</p>
 
-    <div class="contact-container">
-      <div>
-        <div class="section-label">KakaoTalk ID</div>
-        <div class="kakao-card">
-          <div class="character-area">
-            <div class="face-mini muzi" style="transform: scale(0.9);">
-              <div class="muzi-hood"></div>
-            </div>
-            <div class="face-mini ryan">
-              <div class="ryan-nose"></div>
-            </div>
-            <div class="face-mini apeach" style="transform: scale(0.9); top: 5px;"></div>
-          </div>
-          <span class="id-t">9279q</span>
-          <span class="guide-t">카톡 검색창에서 위 아이디를 검색하신 후<br>상담사에게 메시지를 남겨주세요.</span>
-          
-          <div class="char-deco left">🦁</div>
-          <div class="char-deco right">🍑</div>
-        </div>
+    <div class="contact-wrapper">
+      <div class="section-header">
+        <span>KakaoTalk Channel</span>
+        <div class="line"></div>
+      </div>
+      <div class="kakao-card">
+        <div class="friends-group">
+          <div class="friend-circle">🦁</div> <div class="friend-circle">🍑</div> <div class="friend-circle">🐰</div> <div class="friend-circle">🐱</div> </div>
+        <div class="id-display">9279q</div>
+        <p class="guide-text">카카오톡 검색창에서 위 아이디를 검색!<br>상담사에게 친구 추가 후 메시지를 남겨주세요.</p>
       </div>
 
-      <div>
-        <div class="section-label">Direct Telegram</div>
-        <div class="tg-wrapper">
-          <a href="https://t.me/syk345" target="_blank" class="btn-tg">
-            상담사 syk345
-            <span>실시간 1:1 상담 연결</span>
-          </a>
-          <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn-tg">
-            상담사 Noeul
-            <span>심층 전략 상담 연결</span>
-          </a>
-        </div>
+      <div class="section-header" style="margin-top: 15px;">
+        <span>Direct Telegram</span>
+        <div class="line"></div>
+      </div>
+      <div class="tg-grid">
+        <a href="https://t.me/syk345" target="_blank" class="btn-tg">
+          <span class="name">상담사 syk345</span>
+          <span class="role">REAL-TIME SUPPORT</span>
+        </a>
+        <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn-tg">
+          <span class="name">상담사 Noeul</span>
+          <span class="role">STRATEGY ANALYSIS</span>
+        </a>
       </div>
     </div>
 
@@ -189,25 +163,25 @@
       <h3>Premium Insight</h3>
       <ul>
         <li>실시간 글로벌 마켓 데이터 심층 분석</li>
-        <li>데이터 기반 업종별 핵심 테마 추출</li>
-        <li>기관급 전문가 데일리 분석 리포트 제공</li>
+        <li>데이터 기반 업종별 핵심 테마 정밀 추출</li>
+        <li>기관급 투자 전문가 데일리 리포트 제공</li>
       </ul>
     </div>
 
     <div class="info-card">
       <h3 style="color: #ed8936;">Core Strategy</h3>
       <ul style="--accent: #ed8936;">
-        <li>왜곡 없는 객관적 지표 중심 인사이트</li>
-        <li>복잡한 시장 정보의 명확한 데이터 시각화</li>
-        <li>변동성 장세 대응 실시간 전략 지원</li>
+        <li>왜곡 없는 객관적 데이터 지표 중심 분석</li>
+        <li>복잡한 시장 정보의 시각화 데이터 지원</li>
+        <li>실시간 변동성 대응 전략 및 밀착 지원</li>
       </ul>
     </div>
 
-    <p class="final-text">검증된 분석 데이터와 함께<br>성공적인 투자 전략을 시작하세요.</p>
+    <p class="final-cta">검증된 분석 데이터와 함께<br>지금 성공적인 투자를 시작하세요.</p>
 
-    <div style="max-width: 450px; margin: 0 auto;">
-        <a href="https://t.me/syk345" target="_blank" class="btn-tg" style="height: 70px; font-size: 20px; background: var(--telegram); border:none;">
-            상담사에게 문의하기 (Telegram)
+    <div style="max-width: 480px; margin: 0 auto;">
+        <a href="https://t.me/syk345" target="_blank" class="btn-tg" style="height: 75px; background: var(--accent); color: #000; border: none; font-size: 20px;">
+          <span class="name" style="color: #000;">1:1 프리미엄 상담 시작</span>
         </a>
     </div>
 
@@ -220,8 +194,8 @@
         <a href="terms.html">이용약관</a> | <a href="privacy.html">개인정보처리방침</a>
       </div>
       <div class="footer-info">
-        고객센터: 텔레그램 및 카카오톡 상담사 상시 대기<br>
-        운영시간: 평일 09:00 - 18:00 (공휴일 제외)<br>
+        고객지원: 텔레그램 및 카카오톡 상담사 상시 대기<br>
+        운영시간: 평일 09:00 - 18:00 (주말/공휴일 휴무)<br>
         Copyright © BlackLabs Insight. All rights reserved.
       </div>
     </div>
