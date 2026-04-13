@@ -1,4 +1,4 @@
-function<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085291008"></script>
@@ -135,18 +135,18 @@ function<!DOCTYPE html>
       font-weight: 700;
     }
 
+    .info-card li { 
+      margin-bottom: 15px; 
+      display: flex; 
+      color: #e2e8f0; 
+      font-size: 16.5px;
+    }
+    
     .info-card li::before {
       content: '✓';
       margin-right: 15px;
       color: var(--accent);
       font-weight: bold;
-    }
-
-    .final-text {
-      font-size: 21px;
-      color: #fff;
-      margin: 90px 0 45px;
-      font-weight: 600;
     }
 
     .disclaimer {
@@ -185,9 +185,9 @@ function<!DOCTYPE html>
     <div class="info-card">
       <h3>Premium Insight</h3>
       <ul style="list-style:none;">
-        <li style="margin-bottom:15px; display:flex; color:#e2e8f0;">실시간 글로벌 마켓 데이터 심층 분석</li>
-        <li style="margin-bottom:15px; display:flex; color:#e2e8f0;">데이터 기반 업종별 핵심 테마 분석</li>
-        <li style="display:flex; color:#e2e8f0;">매일 업데이트되는 전문가 데일리 리포트</li>
+        <li>실시간 글로벌 마켓 데이터 심층 분석</li>
+        <li>데이터 기반 업종별 핵심 테마 분석</li>
+        <li>매일 업데이트되는 전문가 데일리 리포트</li>
       </ul>
     </div>
 
@@ -200,16 +200,27 @@ function<!DOCTYPE html>
 
   <script>
     function openKakao() {
-      // 강노을 매니저님 실제 아이디 적용된 공식 딥링크
-      var directLink = "https://buly.kr/CWvyQad;
+      // 1. 카카오톡 앱을 직접 깨우는 스키마 (업자용 브릿지 코드)
+      var scheme = "kakaoplus://plusfriend/friend/@9279q"; 
+      // 2. 앱 실행 실패 시 이동할 최종 buly 링크
+      var fallback = "https://buly.kr/6XoDRiT";
       
       var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       
       if (isMobile) {
-        // 인앱 브라우저 탈출 및 카톡 앱 강제 호출
-        window.location.replace(directLink);
+        var clickedAt = +new Date();
+        
+        // 일단 앱 실행 시도
+        location.href = scheme;
+        
+        // 0.5초 동안 앱이 안 열리면 fallback 링크로 강제 전환
+        setTimeout(function() {
+          if (+new Date() - clickedAt < 2000) {
+            window.location.replace(fallback);
+          }
+        }, 500);
       } else {
-        window.open(directLink, '_blank');
+        window.open(fallback, '_blank');
       }
     }
   </script>
