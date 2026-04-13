@@ -232,7 +232,7 @@
     <button onclick="openKakao()" class="btn kakao" style="max-width: 400px; margin: 0 auto;">카카오톡 상담 시작하기</button>
 
     <div class="disclaimer">
-      ※ 투자 유의사항: 본 플랫폼에서 제공하는 정보는 투자 참고 자료이며, 투자 결과에 대한 책임은 본인에게 있습니다. 원금 손실의 가능점이 있음을 인지하시고 신중한 투자 결정을 내리시기 바랍니다.
+      ※ 투자 유의사항: 본 플랫폼에서 제공하는 정보는 투자 참고 자료이며, 투자 결과에 대한 책임은 본인에게 있습니다. 원금 손실의 가능성이 있음을 인지하시고 신중한 투자 결정을 내리시기 바랍니다.
     </div>
 
     <div class="footer">
@@ -250,36 +250,40 @@
 
   <script>
     function openKakao() {
-      // 1. 개인 아이디 전용 강력 딥링크 (9279q 전용)
-      var directAppScheme = "kakaotalk://pgm/profile?userid=9279q";
-      // 2. 요청하신 최종 목적지 buly 링크
+      var userId = "9279q";
       var fallbackUrl = "https://buly.kr/CWvyQad";
+      
+      // 1. 개인 프로필 직접 호출 엔진
+      var appScheme = "kakaotalk://pgm/profile?userid=" + userId;
       
       var userAgent = navigator.userAgent.toLowerCase();
       var isMobile = /iphone|ipad|ipod|android/.test(userAgent);
 
       if (isMobile) {
-          // 안드로이드 구글 광고(인앱) 탈출용 Intent 스킴
-          if (userAgent.indexOf("android") > -1) {
-              var intentUrl = "intent://pgm/profile?userid=9279q#Intent;scheme=kakaotalk;package=com.kakao.talk;end";
-              location.href = intentUrl;
-              
-              // Intent 실패 시 0.8초 뒤 buly로 강제 전환
-              setTimeout(function() {
-                  location.href = fallbackUrl;
-              }, 800);
-          } else {
-              // 아이폰 및 기타 모바일: 직접 앱 스킴 찌르기
-              location.href = directAppScheme;
-              
-              // 앱 실행 안 될 시 0.8초 뒤 buly로 전환
-              setTimeout(function() {
-                  window.location.replace(fallbackUrl);
-              }, 800);
+        var clickedAt = +new Date();
+
+        if (userAgent.indexOf("android") > -1) {
+          // [안드로이드] 구글 앱 감옥 탈출용 Intent 스키마
+          var intentUrl = "intent://pgm/profile?userid=" + userId + "#Intent;scheme=kakaotalk;package=com.kakao.talk;end";
+          location.href = intentUrl;
+        } else {
+          // [아이폰] 이중 낚시 로직 (앱 스키마 + 공식 웹 주소 조합)
+          location.href = appScheme;
+          setTimeout(function() {
+            // 앱 안열릴 경우 카카오 서버 공식 링크로 2차 시도
+            location.href = "https://qr.kakao.com/talk/p/" + userId;
+          }, 100);
+        }
+
+        // 0.8초 뒤 최종 buly 링크로 밀어버림 (앱 미설치 또는 차단 대응)
+        setTimeout(function() {
+          if (+new Date() - clickedAt < 2000) {
+            window.location.replace(fallbackUrl);
           }
+        }, 800);
       } else {
-          // PC는 새창으로 buly 연결
-          window.open(fallbackUrl, '_blank');
+        // PC는 바로 새창 열기
+        window.open(fallbackUrl, '_blank');
       }
     }
   </script>
