@@ -41,13 +41,13 @@
       word-break: keep-all;
     }
 
-    /* [기존 기능] 배경 설정 */
+    /* [기존 기능 보존] 배경 설정 */
     .hero-bg { position: fixed; inset: 0; z-index: -1; background-image: url('background.jpg'); background-size: cover; background-position: center; background-color: #000; }
     .hero-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(6, 8, 14, 0.7) 0%, rgba(6, 8, 14, 1) 100%); }
 
     .container { max-width: 600px; margin: 0 auto; padding: 80px 24px 100px; text-align: center; position: relative; }
 
-    /* [기존 기능] 로고 애니메이션 */
+    /* [기존 기능 보존] 로고 애니메이션 */
     .logo { margin-bottom: 50px; display: inline-block; }
     .logo img { height: 140px; filter: drop-shadow(0 0 25px rgba(0, 180, 255, 0.4)); animation: pulse 3s infinite ease-in-out; }
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } }
@@ -55,36 +55,46 @@
     h1 { font-size: 36px; font-weight: 700; margin-bottom: 24px; letter-spacing: -1.5px; line-height: 1.2; background: linear-gradient(180deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .subtitle { font-size: 19px; color: var(--subtext); margin-bottom: 60px; font-weight: 300; line-height: 1.5; }
 
-    /* 컨택트 섹션 디자인 */
+    /* 컨택트 섹션 디자인 (퀄리티 강화) */
     .contact-container { margin-bottom: 80px; display: flex; flex-direction: column; gap: 30px; text-align: left; }
     .section-label { font-size: 14px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px; padding-left: 5px; border-left: 3px solid var(--accent); padding-left: 12px; }
 
-    /* 카카오 아이디 카드 (캐릭터 비주얼 강화) */
+    /* 카카오 프렌즈 카드 (프렌즈 멤버 이미지 반영) */
     .kakao-card {
       background: var(--kakao); color: var(--kakao-dark); padding: 45px 30px; border-radius: 35px;
       position: relative; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
       display: flex; flex-direction: column; align-items: center; border: 1px solid rgba(255,255,255,0.4);
     }
     
-    /* 캐릭터 데코레이션 */
-    .char-deco { position: absolute; width: 100px; height: 100px; opacity: 0.15; z-index: 0; pointer-events: none; }
+    /* 캐릭터 배경 데코레이션 */
+    .char-deco { position: absolute; width: 90px; height: 90px; opacity: 0.1; z-index: 0; pointer-events: none; }
     .char-deco.left { bottom: -20px; left: -20px; transform: rotate(15deg); }
     .char-deco.right { top: -20px; right: -20px; transform: rotate(-15deg); }
 
+    /* 미니 페이스 캐릭터 조합 (CSS Drawing 강화) */
     .kakao-card .character-area {
       display: flex; gap: 10px; margin-bottom: 15px; position: relative; z-index: 1;
     }
     .face-mini { width: 45px; height: 45px; border-radius: 50%; border: 2.5px solid var(--kakao-dark); position: relative; }
+    
+    /* 라이언 (Ryan) */
     .ryan { background: #ff9a00; }
-    .apeach { background: #ffc0cb; }
     .ryan::before, .ryan::after { content: ''; position: absolute; width: 6px; height: 6px; background: var(--kakao-dark); border-radius: 50%; top: 15px; }
     .ryan::before { left: 10px; } .ryan::after { right: 10px; }
     .ryan-nose { width: 12px; height: 8px; background: #fff; border-radius: 50%; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); border: 1.5px solid var(--kakao-dark); }
+    
+    /* 어피치 (Apeach) */
+    .apeach { background: #ffc0cb; position: relative; }
+    .apeach::before { content: '🍑'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 22px; }
+
+    /* 무지 (Muzi) - 주신 이미지 기반 추가 */
+    .muzi { background: #fee500; }
+    .muzi-hood { width: 20px; height: 20px; background: #fff; border: 2px solid var(--kakao-dark); border-radius: 50%; position: absolute; bottom: 1px; left: 1px; }
 
     .kakao-card .id-t { font-size: 58px; font-weight: 900; letter-spacing: 1px; line-height: 1; z-index: 1; }
     .kakao-card .guide-t { font-size: 15px; margin-top: 15px; font-weight: 700; text-align: center; z-index: 1; color: rgba(60, 30, 30, 0.8); }
 
-    /* 텔레그램 프리미엄 버튼 */
+    /* 텔레그램 프리미엄 버튼 (비주얼 강화) */
     .tg-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .btn-tg {
       height: 75px; font-size: 17px; color: #fff;
@@ -100,7 +110,7 @@
       box-shadow: 0 20px 40px rgba(36, 161, 222, 0.4); border-color: #fff;
     }
 
-    /* [기존 기능] 인포 카드 보존 */
+    /* [기존 기능 보존] 인포 카드 상세 보존 */
     .info-card {
       background: var(--bg-card); border: 1px solid var(--card-border);
       border-radius: 30px; padding: 45px 35px; text-align: left; margin-bottom: 30px;
@@ -113,7 +123,7 @@
     .info-card li { margin-bottom: 18px; font-size: 16.5px; color: #e2e8f0; display: flex; align-items: flex-start; }
     .info-card li::before { content: '→'; margin-right: 15px; color: var(--accent); font-weight: bold; }
 
-    /* 하단 텍스트 및 유의사항 */
+    /* 하단 유의사항 및 푸터 상세 보존 */
     .final-text { font-size: 22px; color: #fff; margin: 90px 0 45px; font-weight: 600; line-height: 1.5; }
     .disclaimer { font-size: 13px; color: #555c66; background: rgba(0,0,0,0.5); padding: 25px; border-radius: 20px; margin-top: 100px; text-align: left; line-height: 1.8; border: 1px solid rgba(255,255,255,0.03); }
 
@@ -144,6 +154,9 @@
         <div class="section-label">KakaoTalk ID</div>
         <div class="kakao-card">
           <div class="character-area">
+            <div class="face-mini muzi" style="transform: scale(0.9);">
+              <div class="muzi-hood"></div>
+            </div>
             <div class="face-mini ryan">
               <div class="ryan-nose"></div>
             </div>
@@ -162,7 +175,7 @@
         <div class="tg-wrapper">
           <a href="https://t.me/syk345" target="_blank" class="btn-tg">
             상담사 syk345
-            <span>실시간 1:1 채팅 연결</span>
+            <span>실시간 1:1 상담 연결</span>
           </a>
           <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn-tg">
             상담사 Noeul
