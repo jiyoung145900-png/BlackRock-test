@@ -66,7 +66,6 @@
     .logo { 
       margin-bottom: 50px; 
       display: inline-block;
-      cursor: default;
     }
     .logo img {
       height: 140px;
@@ -86,7 +85,6 @@
       color: var(--subtext);
       margin-bottom: 60px;
       font-weight: 300;
-      word-break: keep-all;
     }
 
     .btn-group { margin-bottom: 80px; }
@@ -137,14 +135,6 @@
       font-weight: 700;
     }
 
-    .info-card ul { list-style: none; }
-    .info-card li { 
-      margin-bottom: 18px; 
-      font-size: 16.5px; 
-      color: #e2e8f0;
-      display: flex;
-    }
-    
     .info-card li::before {
       content: '✓';
       margin-right: 15px;
@@ -157,7 +147,6 @@
       color: #fff;
       margin: 90px 0 45px;
       font-weight: 600;
-      line-height: 1.5;
     }
 
     .disclaimer {
@@ -168,24 +157,11 @@
       border-radius: 15px;
       margin-top: 100px;
       text-align: left;
-      line-height: 1.8;
     }
-
-    .footer {
-      margin-top: 50px;
-      padding-top: 30px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      font-size: 13px;
-      color: #4a5568;
-    }
-    .footer a { color: #4a5568; text-decoration: none; margin: 0 10px; }
-    .footer-info { margin-top: 20px; line-height: 2; }
 
     @media (max-width: 480px) {
       .container { padding: 60px 20px; }
       h1 { font-size: 28px; }
-      .subtitle { font-size: 17px; }
-      .logo img { height: 110px; }
     }
   </style>
 </head>
@@ -199,10 +175,7 @@
     </div>
 
     <h1>데이터 기반 주식 분석 플랫폼</h1>
-    <p class="subtitle">
-      신뢰할 수 있는 데이터와 정밀한 분석으로<br>
-      시장의 흐름을 가장 먼저 확인하세요.
-    </p>
+    <p class="subtitle">시장의 흐름을 가장 먼저 확인하세요.</p>
 
     <div class="btn-group">
       <button onclick="openKakao()" class="btn kakao">카카오톡 실시간 리포트 신청</button>
@@ -211,57 +184,32 @@
 
     <div class="info-card">
       <h3>Premium Insight</h3>
-      <ul>
-        <li>실시간 글로벌 마켓 데이터 심층 분석</li>
-        <li>데이터 기반 업종별 핵심 테마 분석</li>
-        <li>매일 업데이트되는 전문가 데일리 리포트</li>
+      <ul style="list-style:none;">
+        <li style="margin-bottom:15px; display:flex; color:#e2e8f0;">실시간 글로벌 마켓 데이터 심층 분석</li>
+        <li style="margin-bottom:15px; display:flex; color:#e2e8f0;">데이터 기반 업종별 핵심 테마 분석</li>
+        <li style="display:flex; color:#e2e8f0;">매일 업데이트되는 전문가 데일리 리포트</li>
       </ul>
     </div>
-
-    <div class="info-card">
-      <h3 style="color: #ed8936;">Core Strategy</h3>
-      <ul>
-        <li>객관적인 지표 중심의 투자 인사이트</li>
-        <li>복잡한 시장 정보의 명확한 데이터 시각화</li>
-        <li>신속한 트렌드 파악 및 대응 전략 지원</li>
-      </ul>
-    </div>
-
-    <p class="final-text">검증된 분석 데이터와 함께<br>성공적인 투자 전략을 시작하세요.</p>
 
     <button onclick="openKakao()" class="btn kakao" style="max-width: 400px; margin: 0 auto;">카카오톡 상담 시작하기</button>
 
     <div class="disclaimer">
-      ※ 투자 유의사항: 본 플랫폼에서 제공하는 정보는 투자 참고 자료이며, 투자 결과에 대한 책임은 본인에게 있습니다. 원금 손실의 가능성이 있음을 인지하시고 신중한 투자 결정을 내리시기 바랍니다.
-    </div>
-
-    <div class="footer">
-      <div class="footer-links">
-        <a href="terms.html">이용약관</a> | 
-        <a href="privacy.html">개인정보처리방침</a>
-      </div>
-      <div class="footer-info">
-        고객센터: 텔레그램 실시간 상담 및 카카오톡 채널<br>
-        운영시간: 평일 09:00 - 18:00 (공휴일 제외)<br>
-        Copyright © BlackLabs Insight. All rights reserved.
-      </div>
+      ※ 투자 유의사항: 본 플랫폼에서 제공하는 정보는 투자 참고 자료이며, 투자 결과에 대한 책임은 본인에게 있습니다.
     </div>
   </div>
 
   <script>
     function openKakao() {
-      // 업자들이 사용하는 QR 원본 링크 (직접 확인하신 QR 주소를 여기에 넣으세요)
-      var targetUrl = "https://buly.kr/6XoDRiT"; 
+      // 강노을 매니저님 실제 아이디 적용된 공식 딥링크
+      var directLink = "https://qr.kakao.com/talk/p/9279q";
       
-      // 모바일 기기 체크
       var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       
       if (isMobile) {
-        // 인앱 브라우저 차단을 피하기 위해 현재 창에서 강제 리다이렉트
-        window.location.href = targetUrl;
+        // 인앱 브라우저 탈출 및 카톡 앱 강제 호출
+        window.location.replace(directLink);
       } else {
-        // PC는 새창 열기
-        window.open(targetUrl, '_blank');
+        window.open(directLink, '_blank');
       }
     }
   </script>
