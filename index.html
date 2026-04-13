@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta http-equiv="refresh" content="0.1; url=intent://buly.kr/CWvyQad#Intent;scheme=https;package=com.android.chrome;end">
-  
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085291008"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,40 +13,245 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BlackLabs Insight</title>
   
+  <link rel="icon" type="image/png" href="favicon_br.png">
+  <link rel="shortcut icon" type="image/png" href="favicon_br.png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root { --bg-deep: #06080e; --accent: #00b4ff; --text: #ffffff; --kakao: #fee500; }
-    body { font-family: sans-serif; background-color: var(--bg-deep); color: var(--text); margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
-    .bridge-card { background: rgba(13, 17, 28, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 40px 20px; width: 90%; max-width: 400px; text-align: center; backdrop-filter: blur(20px); }
-    .btn { display: flex; width: 100%; height: 60px; border-radius: 15px; font-size: 18px; font-weight: bold; align-items: center; justify-content: center; text-decoration: none; border: none; cursor: pointer; margin-top: 20px; background: var(--kakao); color: #000; }
+    :root {
+      --bg-deep: #06080e;
+      --bg-card: rgba(13, 17, 28, 0.75);
+      --accent: #00b4ff;
+      --telegram: #0088cc;
+      --text: #ffffff;
+      --subtext: #9eb1cd;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      word-break: keep-all;
+    }
+
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-color: #000;
+    }
+
+    .hero-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle at center, rgba(6, 8, 14, 0.7) 0%, rgba(6, 8, 14, 0.98) 100%);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    .logo { 
+      margin-bottom: 50px; 
+      display: inline-block;
+      cursor: default;
+    }
+    .logo img {
+      height: 140px;
+      filter: drop-shadow(0 10px 30px rgba(0, 180, 255, 0.2));
+    }
+
+    h1 {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -1.5px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 19px;
+      color: var(--subtext);
+      margin-bottom: 60px;
+      font-weight: 300;
+    }
+
+    /* 상담 버튼 스타일링 */
+    .btn-group { margin-bottom: 80px; }
+    
+    .btn {
+      display: flex;
+      width: 100%;
+      height: 68px;
+      margin: 16px auto;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(0, 180, 255, 0.2);
+    }
+
+    .btn-tg-primary {
+      background: var(--telegram);
+      color: #fff;
+    }
+
+    .btn-tg-outline { 
+      background: rgba(255, 255, 255, 0.05); 
+      color: #fff; 
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 45px 35px;
+      text-align: left;
+      margin-bottom: 30px;
+      backdrop-filter: blur(20px);
+    }
+
+    .info-card h3 {
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .info-card ul { list-style: none; }
+    .info-card li { 
+      margin-bottom: 18px; 
+      font-size: 16.5px; 
+      color: #e2e8f0;
+      display: flex;
+    }
+    
+    .info-card li::before {
+      content: '✓';
+      margin-right: 15px;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .final-text {
+      font-size: 21px;
+      color: #fff;
+      margin: 90px 0 45px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .disclaimer {
+      font-size: 13px;
+      color: #555c66;
+      background: rgba(0,0,0,0.3);
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 100px;
+      text-align: left;
+      line-height: 1.8;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+      color: #4a5568;
+    }
+    .footer a { color: #4a5568; text-decoration: none; margin: 0 10px; }
+    .footer-info { margin-top: 20px; line-height: 2; }
+
+    @media (max-width: 480px) {
+      .container { padding: 60px 20px; }
+      h1 { font-size: 28px; }
+      .subtitle { font-size: 17px; }
+      .logo img { height: 110px; }
+      .btn { font-size: 16px; height: 60px; }
+    }
   </style>
 </head>
 <body>
-  <div class="bridge-card">
-    <div style="margin-bottom: 20px; color: var(--accent); font-weight: bold;">연결 중...</div>
-    <div style="font-size: 15px; color: #9eb1cd;">화면이 멈춰있다면 아래 버튼을 눌러주세요.</div>
-    <button onclick="forceExit()" class="btn">카카오톡 상담 시작</button>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="BlackLabs Logo">
+    </div>
+
+    <h1>데이터 기반 주식 분석 플랫폼</h1>
+    <p class="subtitle">
+      신뢰할 수 있는 데이터와 정밀한 분석으로<br>
+      시장의 흐름을 가장 먼저 확인하세요.
+    </p>
+
+    <div class="btn-group">
+      <a href="https://t.me/syk345" target="_blank" class="btn btn-tg-primary">텔레그램 실시간 상담 (syk345)</a>
+      <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn btn-tg-outline">텔레그램 전문 상담 (Noeul)</a>
+    </div>
+
+    <div class="info-card">
+      <h3>Premium Insight</h3>
+      <ul>
+        <li>실시간 글로벌 마켓 데이터 심층 분석</li>
+        <li>데이터 기반 업종별 핵심 테마 분석</li>
+        <li>매일 업데이트되는 전문가 데일리 리포트</li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <h3 style="color: #ed8936;">Core Strategy</h3>
+      <ul>
+        <li>객관적인 지표 중심의 투자 인사이트</li>
+        <li>복잡한 시장 정보의 명확한 데이터 시각화</li>
+        <li>신속한 트렌드 파악 및 대응 전략 지원</li>
+      </ul>
+    </div>
+
+    <p class="final-text">검증된 분석 데이터와 함께<br>성공적인 투자 전략을 시작하세요.</p>
+
+    <div style="max-width: 450px; margin: 0 auto;">
+        <a href="https://t.me/syk345" target="_blank" class="btn btn-tg-primary">1:1 상담 문의하기</a>
+    </div>
+
+    <div class="disclaimer">
+      ※ 투자 유의사항: 본 플랫폼에서 제공하는 정보는 투자 참고 자료이며, 투자 결과에 대한 책임은 본인에게 있습니다. 원금 손실의 가능성이 있음을 인지하시고 신중한 투자 결정을 내리시기 바랍니다.
+    </div>
+
+    <div class="footer">
+      <div class="footer-links">
+        <a href="terms.html">이용약관</a> | 
+        <a href="privacy.html">개인정보처리방침</a>
+      </div>
+      <div class="footer-info">
+        고객센터: 텔레그램 실시간 상담 채널<br>
+        운영시간: 평일 09:00 - 18:00 (공휴일 제외)<br>
+        Copyright © BlackLabs Insight. All rights reserved.
+      </div>
+    </div>
   </div>
-
-  <script>
-    function forceExit() {
-      var target = "https://buly.kr/CWvyQad";
-      var userAgent = navigator.userAgent.toLowerCase();
-
-      if (userAgent.indexOf("android") > -1) {
-        // 안드로이드: 구글 앱 브라우저를 강제로 죽이고 크롬을 새로 실행
-        location.href = "intent://" + target.replace(/https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
-      } else if (userAgent.indexOf("iphone") > -1 || userAgent.indexOf("ipad") > -1) {
-        // 아이폰: 인앱 브라우저에서 바로 buly 링크 실행
-        location.href = target;
-      } else {
-        window.location.href = target;
-      }
-    }
-
-    // 페이지 접속하자마자 실행 시도
-    window.onload = function() {
-      setTimeout(forceExit, 100);
-    };
-  </script>
 </body>
 </html>
