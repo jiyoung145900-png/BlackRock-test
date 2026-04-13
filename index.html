@@ -83,28 +83,41 @@
       font-weight: 300; line-height: 1.5;
     }
 
-    /* 컨택트 섹션 - 간지 포인트 */
     .contact-container {
       margin-bottom: 80px;
-      display: flex; flex-direction: column; gap: 16px;
+      display: flex; flex-direction: column; gap: 20px;
+      text-align: left;
     }
+
+    .section-label {
+      font-size: 13px; color: var(--accent); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 12px; padding-left: 5px;
+    }
+
+    /* 카카오톡 아이디 표시 카드 디자인 */
+    .kakao-id-card {
+      background: var(--kakao);
+      color: #1a1a1a;
+      padding: 35px 20px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 15px 35px rgba(254, 229, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .kakao-id-card .label-t { font-size: 14px; font-weight: 700; opacity: 0.6; margin-bottom: 10px; text-transform: uppercase; }
+    .kakao-id-card .id-t { font-size: 46px; font-weight: 900; letter-spacing: 2px; line-height: 1; font-family: 'Inter'; }
+    .kakao-id-card .guide-t { font-size: 14px; margin-top: 18px; font-weight: 500; text-align: center; opacity: 0.8; }
 
     .btn {
       display: flex; align-items: center; justify-content: center;
       width: 100%; border-radius: 20px;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      text-decoration: none; font-weight: 700; position: relative;
-      overflow: hidden;
+      text-decoration: none; font-weight: 700;
     }
-
-    /* 카카오 버튼 전용 */
-    .btn-kakao {
-      height: 75px; background: var(--kakao); color: #000;
-      flex-direction: column; border: none;
-    }
-    .btn-kakao:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(254, 229, 0, 0.2); }
-    .btn-kakao .m-text { font-size: 19px; margin-bottom: 2px; }
-    .btn-kakao .s-text { font-size: 12px; font-weight: 400; opacity: 0.8; }
 
     /* 텔레그램 그리드 */
     .tg-wrapper {
@@ -112,21 +125,15 @@
     }
     .btn-tg {
       height: 65px; font-size: 16px; color: #fff;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--card-border);
       backdrop-filter: blur(15px);
     }
     .btn-tg:hover {
-      background: rgba(0, 136, 204, 0.1);
+      background: rgba(0, 136, 204, 0.15);
       border-color: var(--telegram);
-      color: var(--telegram);
+      color: var(--accent);
       transform: translateY(-5px);
-    }
-
-    .section-label {
-      font-size: 13px; color: var(--accent); font-weight: 700;
-      text-transform: uppercase; letter-spacing: 2px;
-      margin-bottom: 8px; text-align: left; padding-left: 5px;
     }
 
     /* 인포 카드 */
@@ -136,10 +143,7 @@
       border-radius: 28px; padding: 45px 35px;
       text-align: left; margin-bottom: 30px;
       backdrop-filter: blur(20px);
-      transition: 0.3s;
     }
-    .info-card:hover { border-color: rgba(0, 180, 255, 0.3); }
-
     .info-card h3 {
       font-size: 20px; margin-bottom: 25px;
       color: var(--accent); font-weight: 700;
@@ -181,8 +185,7 @@
     @media (max-width: 480px) {
       .container { padding: 60px 20px; }
       h1 { font-size: 28px; }
-      .subtitle { font-size: 17px; }
-      .logo img { height: 110px; }
+      .kakao-id-card .id-t { font-size: 38px; }
       .tg-wrapper { grid-template-columns: 1fr; }
     }
   </style>
@@ -204,14 +207,15 @@
 
     <div class="contact-container">
       <div>
-        <div class="section-label">KakaoTalk Service</div>
-        <a href="https://buly.kr/CWvyQad" target="_blank" class="btn btn-kakao">
-          <span class="m-text">카톡 아이디 추가 후 문의하기</span>
-          <span class="s-text">클릭 시 친구추가 페이지로 연결됩니다</span>
-        </a>
+        <div class="section-label">KakaoTalk ID</div>
+        <div class="kakao-id-card">
+          <span class="label-t">카카오톡 상담 아이디</span>
+          <span class="id-t">9279q</span>
+          <span class="guide-t">카카오톡 상단 검색창에 위 아이디를 검색하여<br>친구 추가 후 메시지를 남겨주세요.</span>
+        </div>
       </div>
 
-      <div style="margin-top: 20px;">
+      <div style="margin-top: 10px;">
         <div class="section-label">Direct Telegram</div>
         <div class="tg-wrapper">
           <a href="https://t.me/syk345" target="_blank" class="btn btn-tg">전문가 syk345</a>
