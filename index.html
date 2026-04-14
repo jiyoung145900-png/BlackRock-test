@@ -7,8 +7,8 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'AW-18085291008', {
-      'allow_enhanced_conversions': true, // 데이터 보정 기능 강화
-      'cookie_flags': 'SameSite=None;Secure' // 크롬/사파리 쿠키 보안 설정 대응
+      'allow_enhanced_conversions': true,
+      'cookie_flags': 'SameSite=None;Secure'
     });
   </script>
 
@@ -24,7 +24,7 @@
   <style>
     :root {
       --bg-deep: #0a0c10;
-      --bg-card: rgba(18, 22, 30, 0.98);
+      --bg-card: rgba(18, 22, 30, 0.95);
       --accent: #00b4ff;
       --telegram: #24a1de;
       --kakao: #fee500;
@@ -34,7 +34,7 @@
       --border-light: rgba(255, 255, 255, 0.15);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
     body {
       font-family: 'Noto Sans KR', sans-serif;
@@ -63,7 +63,7 @@
     .section-header .line { flex-grow: 1; height: 1px; background: var(--border-light); }
     .section-header span { font-size: 14px; font-weight: 900; color: var(--accent); letter-spacing: 2px; }
 
-    /* 카카오톡 채널 */
+    /* 카카오톡 섹션 */
     .kakao-card {
       background: var(--kakao); color: var(--kakao-dark); padding: 50px 20px; border-radius: 12px;
       box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; overflow: hidden;
@@ -71,15 +71,11 @@
     }
     .friends-group { display: flex; align-items: flex-end; justify-content: center; gap: -12px; margin-bottom: 20px; }
     .friend-circle { width: 60px; height: 60px; border-radius: 50%; border: 3px solid var(--kakao-dark); display: flex; align-items: center; justify-content: center; font-size: 28px; background: #fff; margin: 0 -8px; }
-
     .id-display { font-size: 68px; font-weight: 950; letter-spacing: 1px; line-height: 1; margin: 10px 0; font-family: 'Inter', sans-serif; }
-    
-    .copy-btn {
-      background: var(--kakao-dark); color: var(--kakao); border: none; padding: 20px 45px; border-radius: 4px;
-      font-size: 18px; font-weight: 900; cursor: pointer; transition: 0.3s; margin-top: 15px; -webkit-appearance: none;
-    }
+    .copy-btn { background: var(--kakao-dark); color: var(--kakao); border: none; padding: 20px 45px; border-radius: 4px; font-size: 18px; font-weight: 900; cursor: pointer; transition: 0.3s; margin-top: 15px; -webkit-appearance: none; }
+    .copy-btn:active { background: #000; transform: scale(0.98); }
 
-    /* 텔레그램 채널 (구분감 강화) */
+    /* 텔레그램 섹션 (구분감 강화) */
     .tg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .btn-tg {
       height: 100px; text-decoration: none; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -90,25 +86,26 @@
     .btn-tg .name { color: #fff; font-size: 20px; font-weight: 800; }
     .btn-tg .role { color: var(--accent); font-size: 13px; font-weight: 700; margin-top: 6px; }
 
-    /* [기능 유지] 정보 카드 */
+    /* 정보 카드 */
     .info-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; padding: 40px 30px; text-align: left; margin-bottom: 25px; }
     .info-card h3 { font-size: 22px; margin-bottom: 25px; color: var(--accent); font-weight: 900; border-left: 6px solid var(--accent); padding-left: 15px; }
     .info-card ul { list-style: none; }
     .info-card li { margin-bottom: 15px; font-size: 18px; color: #e2e8f0; display: flex; align-items: flex-start; gap: 12px; }
     .info-card li::before { content: '✓'; color: var(--accent); font-weight: 900; }
 
-    /* [기능 유지] WSJ 아티클 보존 */
-    .wsj-article {
-      background: #fff; color: #1a1a1a; padding: 60px 40px; text-align: left; margin-top: 80px; border-radius: 4px; line-height: 2.1; position: relative;
-    }
-    .wsj-article::before { content: 'SPECIAL ANALYSIS REPORT'; position: absolute; top: 25px; left: 40px; font-size: 12px; font-weight: 900; color: #cc0000; letter-spacing: 1px; }
+    /* WSJ 아티클 */
+    .wsj-article { background: #fff; color: #1a1a1a; padding: 60px 40px; text-align: left; margin-top: 80px; border-radius: 4px; line-height: 2.1; position: relative; }
     .wsj-article h4 { font-family: 'Playfair Display', serif; font-size: 30px; margin: 25px 0 30px; font-weight: 800; border-bottom: 2px solid #1a1a1a; padding-bottom: 15px; }
-    .wsj-article p { margin-bottom: 25px; font-size: 17px; font-weight: 400; color: #222; }
     .wsj-article .dropcap { float: left; font-size: 80px; line-height: 65px; padding-top: 6px; padding-right: 12px; font-family: 'Playfair Display', serif; font-weight: 700; color: #000; }
 
     .final-cta { font-size: 26px; color: #fff; margin: 80px 0 40px; font-weight: 900; line-height: 1.5; }
     .disclaimer { font-size: 13px; color: #718096; background: rgba(0,0,0,0.4); padding: 30px; border-radius: 8px; margin-top: 80px; text-align: left; line-height: 2.0; border: 1px solid var(--border-light); }
-    .footer { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-light); font-size: 13px; color: #4a5568; }
+    
+    /* [수정] 푸터 링크 레이아웃 보완 */
+    .footer { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-light); font-size: 14px; color: #4a5568; }
+    .footer-links { margin-bottom: 20px; }
+    .footer-links a { color: #667eea; text-decoration: none; margin: 0 15px; font-weight: 700; }
+    .footer-links a:hover { text-decoration: underline; }
 
     @media (max-width: 480px) {
       .container { padding: 50px 15px; }
@@ -155,18 +152,26 @@
     </div>
 
     <div class="info-card">
-      <h3>제공 서비스 안내</h3>
+      <h3>Premium Service</h3>
       <ul>
-        <li>실시간 글로벌 시장 데이터 심층 분석 자료</li>
-        <li>데이터 알고리즘 기반 업종별 핵심 주도 섹터 추출</li>
-        <li>기관 및 외국인 수급 동향 데이터 추적</li>
+        <li>실시간 글로벌 시장 데이터 심층 분석</li>
+        <li>데이터 알고리즘 기반 주도주 정밀 추출</li>
+        <li>기관 및 외국인 수급 동향 실시간 추적</li>
       </ul>
     </div>
 
     <div class="wsj-article">
       <h4>왜 자본은 오직 숫자에만 응답하는가</h4>
       <p><span class="dropcap">현</span>대 주식 시장은 정보의 과잉과 왜곡이 교차하는 거대한 데이터 정글입니다. 매일 아침 수만 건의 뉴스가 쏟아지지만, 그 중 실제 수익으로 연결되는 핵심 정보를 가려내는 것은 개인 투자자에게 불가능에 가까운 과제입니다. 본 분석 플랫폼은 오직 객관적으로 검증된 데이터 지표만이 자본의 흐름을 예측할 수 있다는 확고한 원칙 아래 운영됩니다.</p>
-      <p>우리는 왜곡된 소문이나 불확실한 전망에 기대지 않습니다. 글로벌 거시 경제 지표의 미세한 변화부터 대형 기관 및 외국인 자금의 실시간 수급 동향까지, 정교한 알고리즘을 통해 필터링된 데이터만을 분석합니다.</p>
+      <p>우리는 왜곡된 소문이나 불확실한 전망에 기대지 않습니다. 글로벌 거시 경제 지표의 미세한 변화부터 대형 기관 및 외국인 자금의 실시간 수급 동향까지, 정교한 알고리즘을 통해 필터링된 데이터만을 분석합니다. 특히 폭발적인 성장이 예견되는 AI 인프라 및 핵심 반도체 섹터에서는 공급 부족 현상과 실적 모멘텀이 맞물리는 최적의 진입 시점을 포착하여 회원들에게 제공하고 있습니다.</p>
+    </div>
+
+    <p class="final-cta">검증된 데이터와 함께<br>성공적인 투자를 시작하십시오.</p>
+
+    <div style="max-width: 480px; margin: 0 auto;">
+        <a href="https://t.me/syk345" target="_blank" class="btn-tg" style="height: 80px; background: var(--accent); color: #000; border: none; font-size: 22px;">
+          <span class="name" style="color: #000; font-weight: 900;">상담 지금 시작하기</span>
+        </a>
     </div>
 
     <div class="disclaimer">
@@ -175,6 +180,10 @@
     </div>
 
     <div class="footer">
+      <div class="footer-links">
+        <a href="terms.html">이용약관</a>
+        <a href="privacy.html">개인정보처리방침</a>
+      </div>
       <div class="footer-info">
         상담 시간: 평일 09:00 - 18:00 (주말/공휴일 제외) | Copyright © All Rights Reserved.
       </div>
@@ -184,7 +193,6 @@
   <script>
     function copyId() {
       const idText = document.getElementById('kakao-id').innerText;
-      // [해결] 아이폰/안드로이드 모든 모바일 브라우저 호환 복사 로직
       const textArea = document.createElement("textarea");
       textArea.value = idText;
       document.body.appendChild(textArea);
@@ -192,9 +200,7 @@
       try {
         document.execCommand('copy');
         alert('상담 아이디(9279q)가 복사되었습니다!\n\n평일 09:00~18:00 사이에 카카오톡에서 검색 후 메시지를 남겨주시면 순차적으로 상담을 도와드립니다.');
-      } catch (err) {
-        console.error('복사 실패', err);
-      }
+      } catch (err) { console.error('복사 실패'); }
       document.body.removeChild(textArea);
     }
   </script>
