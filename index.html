@@ -1,208 +1,279 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085291008"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-18085291008', {
-      'allow_enhanced_conversions': true,
-      'cookie_flags': 'SameSite=None;Secure'
-    });
-  </script>
+    <meta charset="UTF-8">
+    <title>BLACKROCK ELITE V11.0 - AUTO TYPER</title>
+    <style>
+        :root { 
+            --bg: #0a0a0a; --panel: #161616; --item: #212121; 
+            --point: #007bff; --neon: #00ff00; --text: #e0e0e0; 
+            --danger: #ff4d4d;
+        }
+        body { font-family: 'Pretendard', sans-serif; margin: 0; background: var(--bg); color: var(--text); user-select: none; overflow: hidden; }
+        
+        /* 헤더 섹션 */
+        .header { display: flex; align-items: center; padding: 10px 15px; background: var(--panel); border-bottom: 2px solid #333; gap: 10px; }
+        .brand { font-weight: 900; font-size: 14px; color: var(--point); letter-spacing: 1px; }
+        .search-input { flex: 1; background: #000; border: 1px solid #444; color: var(--neon); padding: 7px 12px; border-radius: 4px; outline: none; font-size: 13px; font-family: 'Consolas', monospace; }
+        .btn-group { display: flex; gap: 5px; }
+        .menu-btn { background: #333; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.2s; }
+        .menu-btn:hover { background: #444; transform: translateY(-1px); }
+        .btn-main { background: var(--point) !important; }
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>데이터 분석 지능형 투자 플랫폼</title>
-  
-  <link rel="icon" type="image/png" href="favicon_br.png">
-  <link rel="shortcut icon" type="image/png" href="favicon_br.png">
-  
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-deep: #0a0c10;
-      --bg-card: rgba(18, 22, 30, 0.95);
-      --accent: #00b4ff;
-      --telegram: #24a1de;
-      --kakao: #fee500;
-      --kakao-dark: #3c1e1e;
-      --text: #ffffff;
-      --subtext: #a0aec0;
-      --border-light: rgba(255, 255, 255, 0.15);
-    }
+        /* 컨테이너 및 탭 */
+        .container { padding: 10px 12px; height: calc(100vh - 55px); overflow-y: auto; }
+        .tab-bar { display: flex; gap: 5px; margin-bottom: 12px; flex-wrap: wrap; }
+        .tab-btn { padding: 6px 12px; background: #2a2a2a; border: none; color: #777; cursor: pointer; border-radius: 4px; font-size: 12px; transition: 0.2s; }
+        .tab-btn.active { background: var(--point); color: white; font-weight: bold; box-shadow: 0 0 10px rgba(0,123,255,0.4); }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        /* 리스트 스타일 */
+        .macro-list { display: grid; grid-template-columns: 1fr; gap: 6px; } 
+        .macro-item { 
+            display: flex; align-items: flex-start; background: var(--item); padding: 10px 15px; 
+            border-radius: 6px; border: 1px solid #2d2d2d; outline: none; cursor: move; transition: 0.2s;
+        } 
+        .macro-item:hover { border-color: var(--point); background: #2a2a2a; box-shadow: 4px 4px 10px rgba(0,0,0,0.3); }
+        .macro-item:focus { border-color: #ffc107; background: #333; }
+        
+        .num { color: #555; width: 25px; font-weight: bold; font-size: 11px; flex-shrink: 0; margin-top: 4px; }
+        .macro-content { flex: 1; cursor: pointer; font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-break: break-all; }
 
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: var(--bg-deep);
-      color: var(--text);
-      line-height: 1.8;
-      overflow-x: hidden;
-      word-break: keep-all;
-    }
+        /* 모달 스타일 */
+        #modalOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+        .modal { background: #1e1e1e; padding: 25px; border-radius: 10px; width: 500px; border: 1px solid var(--point); }
+        .modal-input { width: 100%; background: #000; border: 1px solid #444; color: #fff; padding: 15px; border-radius: 6px; outline: none; font-size: 14px; box-sizing: border-box; margin-bottom: 15px; resize: vertical; }
 
-    .hero-bg { position: fixed; inset: 0; z-index: -1; background-image: url('background.jpg'); background-size: cover; background-position: center; }
-    .hero-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(10, 12, 16, 0.85) 0%, rgba(10, 12, 16, 1) 100%); }
+        /* 우클릭 메뉴 및 토스트 */
+        #contextMenu { display: none; position: fixed; background: #2a2a2a; border: 1px solid #444; z-index: 2000; border-radius: 6px; padding: 5px 0; min-width: 150px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        #contextMenu div { padding: 10px 15px; cursor: pointer; font-size: 13px; color: white; }
+        #contextMenu div:hover { background: var(--point); }
+        
+        #toast { 
+            visibility: hidden; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            background: var(--point); color: white; padding: 10px 25px; border-radius: 30px; 
+            font-size: 13px; z-index: 6000; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        #toast.show { visibility: visible; animation: fadein 0.3s, fadeout 0.3s 1.2s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
 
-    .container { max-width: 650px; margin: 0 auto; padding: 60px 20px 120px; text-align: center; position: relative; }
-
-    /* [기능 유지] 로고 애니메이션 */
-    .logo { margin-bottom: 40px; display: inline-block; }
-    .logo img { height: 120px; filter: drop-shadow(0 0 35px rgba(0, 180, 255, 0.35)); animation: pulse 3s infinite ease-in-out; }
-    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.96); opacity: 0.85; } }
-
-    h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; margin-bottom: 20px; letter-spacing: -1.5px; }
-    .subtitle { font-size: 20px; color: var(--accent); margin-bottom: 60px; font-weight: 500; }
-
-    .contact-wrapper { display: flex; flex-direction: column; gap: 40px; margin-bottom: 80px; text-align: left; }
-    .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-    .section-header .line { flex-grow: 1; height: 1px; background: var(--border-light); }
-    .section-header span { font-size: 14px; font-weight: 900; color: var(--accent); letter-spacing: 2px; }
-
-    /* 카카오톡 섹션 */
-    .kakao-card {
-      background: var(--kakao); color: var(--kakao-dark); padding: 50px 20px; border-radius: 12px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; overflow: hidden;
-      display: flex; flex-direction: column; align-items: center; border-top: 6px solid var(--kakao-dark);
-    }
-    .friends-group { display: flex; align-items: flex-end; justify-content: center; gap: -12px; margin-bottom: 20px; }
-    .friend-circle { width: 60px; height: 60px; border-radius: 50%; border: 3px solid var(--kakao-dark); display: flex; align-items: center; justify-content: center; font-size: 28px; background: #fff; margin: 0 -8px; }
-    .id-display { font-size: 68px; font-weight: 950; letter-spacing: 1px; line-height: 1; margin: 10px 0; font-family: 'Inter', sans-serif; }
-    .copy-btn { background: var(--kakao-dark); color: var(--kakao); border: none; padding: 20px 45px; border-radius: 4px; font-size: 18px; font-weight: 900; cursor: pointer; transition: 0.3s; margin-top: 15px; -webkit-appearance: none; }
-    .copy-btn:active { background: #000; transform: scale(0.98); }
-
-    /* 텔레그램 섹션 (구분감 강화) */
-    .tg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .btn-tg {
-      height: 100px; text-decoration: none; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: linear-gradient(145deg, rgba(36, 161, 222, 0.25) 0%, rgba(36, 161, 222, 0.1) 100%);
-      border: 1px solid var(--telegram); backdrop-filter: blur(20px); transition: 0.3s;
-    }
-    .btn-tg .tg-icon { font-size: 11px; font-weight: 900; color: var(--telegram); letter-spacing: 2px; margin-bottom: 5px; }
-    .btn-tg .name { color: #fff; font-size: 20px; font-weight: 800; }
-    .btn-tg .role { color: var(--accent); font-size: 13px; font-weight: 700; margin-top: 6px; }
-
-    /* 정보 카드 */
-    .info-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 8px; padding: 40px 30px; text-align: left; margin-bottom: 25px; }
-    .info-card h3 { font-size: 22px; margin-bottom: 25px; color: var(--accent); font-weight: 900; border-left: 6px solid var(--accent); padding-left: 15px; }
-    .info-card ul { list-style: none; }
-    .info-card li { margin-bottom: 15px; font-size: 18px; color: #e2e8f0; display: flex; align-items: flex-start; gap: 12px; }
-    .info-card li::before { content: '✓'; color: var(--accent); font-weight: 900; }
-
-    /* WSJ 아티클 */
-    .wsj-article { background: #fff; color: #1a1a1a; padding: 60px 40px; text-align: left; margin-top: 80px; border-radius: 4px; line-height: 2.1; position: relative; }
-    .wsj-article h4 { font-family: 'Playfair Display', serif; font-size: 30px; margin: 25px 0 30px; font-weight: 800; border-bottom: 2px solid #1a1a1a; padding-bottom: 15px; }
-    .wsj-article .dropcap { float: left; font-size: 80px; line-height: 65px; padding-top: 6px; padding-right: 12px; font-family: 'Playfair Display', serif; font-weight: 700; color: #000; }
-
-    .final-cta { font-size: 26px; color: #fff; margin: 80px 0 40px; font-weight: 900; line-height: 1.5; }
-    .disclaimer { font-size: 13px; color: #718096; background: rgba(0,0,0,0.4); padding: 30px; border-radius: 8px; margin-top: 80px; text-align: left; line-height: 2.0; border: 1px solid var(--border-light); }
-    
-    /* [수정] 푸터 링크 레이아웃 보완 */
-    .footer { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-light); font-size: 14px; color: #4a5568; }
-    .footer-links { margin-bottom: 20px; }
-    .footer-links a { color: #667eea; text-decoration: none; margin: 0 15px; font-weight: 700; }
-    .footer-links a:hover { text-decoration: underline; }
-
-    @media (max-width: 480px) {
-      .container { padding: 50px 15px; }
-      h1 { font-size: 28px; }
-      .id-display { font-size: 58px; }
-      .tg-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
 </head>
 <body>
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  
-  <div class="container">
-    <div class="logo"><img src="logo.png" alt="분석 플랫폼"></div>
 
-    <h1>The Market Intelligence</h1>
-    <p class="subtitle">시장의 흐름을 숫자로 먼저 읽어냅니다</p>
+<div id="toast">메신저로 발사! 🚀</div>
+<div id="contextMenu"></div>
 
-    <div class="contact-wrapper">
-      <div class="section-header"><span>KAKAO ID CONSULT</span><div class="line"></div></div>
-      <div class="kakao-card">
-        <div class="friends-group">
-          <div class="friend-circle">🦁</div> <div class="friend-circle">🍑</div> <div class="friend-circle">🐰</div> <div class="friend-circle">🐱</div> 
+<div id="modalOverlay">
+    <div class="modal">
+        <div id="modalTitle" style="margin-bottom:15px; color:var(--point); font-weight:bold; font-size:16px;">상담 문구 관리</div>
+        <textarea id="modalInp" class="modal-input" rows="12" placeholder="전송할 내용을 입력하세요..."></textarea>
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button class="menu-btn" onclick="closeModal()">취소</button>
+            <button class="menu-btn btn-main" onclick="saveItem()">데이터 저장</button>
         </div>
-        <div class="id-display" id="kakao-id">9279q</div>
-        <button class="copy-btn" onclick="copyId()">아이디 복사하고 상담하기</button>
-        <p style="font-size: 17px; font-weight: 700; text-align: center; color: rgba(60, 30, 30, 0.9); margin-top: 25px;">카톡 검색창에 위 아이디를 입력하시면 바로 연결됩니다.</p>
-      </div>
-
-      <div class="section-header"><span>TELEGRAM OFFICIAL CHANNEL</span><div class="line"></div></div>
-      <div class="tg-grid">
-        <a href="https://t.me/syk345" target="_blank" class="btn-tg">
-          <div class="tg-icon">TELEGRAM</div>
-          <span class="name">상담사 syk345</span>
-          <span class="role">실시간 시장 대응 가이드</span>
-        </a>
-        <a href="https://t.me/BRWM_Noeul" target="_blank" class="btn-tg">
-          <div class="tg-icon">TELEGRAM</div>
-          <span class="name">상담사 Noeul</span>
-          <span class="role">심층 전략 및 종목 분석</span>
-        </a>
-      </div>
     </div>
+</div>
 
-    <div class="info-card">
-      <h3>Premium Service</h3>
-      <ul>
-        <li>실시간 글로벌 시장 데이터 심층 분석</li>
-        <li>데이터 알고리즘 기반 주도주 정밀 추출</li>
-        <li>기관 및 외국인 수급 동향 실시간 추적</li>
-      </ul>
+<div class="header">
+    <div class="brand">BLACKROCK</div>
+    <input type="text" id="searchBox" class="search-input" placeholder="🔍 키워드 검색 (실시간)" onkeyup="render()">
+    <div class="btn-group">
+        <button class="menu-btn" onclick="addTabPrompt()">탭+</button>
+        <button class="menu-btn btn-main" onclick="openModal()">문장+</button>
+        <button class="menu-btn" onclick="exportData()">백업</button>
+        <button class="menu-btn" onclick="document.getElementById('importFile').click()">복원</button>
     </div>
+    <input type="file" id="importFile" style="display:none" onchange="importData(this)">
+</div>
 
-    <div class="wsj-article">
-      <h4>왜 자본은 오직 숫자에만 응답하는가</h4>
-      <p><span class="dropcap">현</span>대 주식 시장은 정보의 과잉과 왜곡이 교차하는 거대한 데이터 정글입니다. 매일 아침 수만 건의 뉴스가 쏟아지지만, 그 중 실제 수익으로 연결되는 핵심 정보를 가려내는 것은 개인 투자자에게 불가능에 가까운 과제입니다. 본 분석 플랫폼은 오직 객관적으로 검증된 데이터 지표만이 자본의 흐름을 예측할 수 있다는 확고한 원칙 아래 운영됩니다.</p>
-      <p>우리는 왜곡된 소문이나 불확실한 전망에 기대지 않습니다. 글로벌 거시 경제 지표의 미세한 변화부터 대형 기관 및 외국인 자금의 실시간 수급 동향까지, 정교한 알고리즘을 통해 필터링된 데이터만을 분석합니다. 특히 폭발적인 성장이 예견되는 AI 인프라 및 핵심 반도체 섹터에서는 공급 부족 현상과 실적 모멘텀이 맞물리는 최적의 진입 시점을 포착하여 회원들에게 제공하고 있습니다.</p>
-    </div>
+<div class="container">
+    <div class="tab-bar" id="tabBar"></div>
+    <div class="macro-list" id="list"></div>
+</div>
 
-    <p class="final-cta">검증된 데이터와 함께<br>성공적인 투자를 시작하십시오.</p>
+<script>
+    // Electron IPC 통신 설정
+    const { ipcRenderer } = require('electron');
 
-    <div style="max-width: 480px; margin: 0 auto;">
-        <a href="https://t.me/syk345" target="_blank" class="btn-tg" style="height: 80px; background: var(--accent); color: #000; border: none; font-size: 22px;">
-          <span class="name" style="color: #000; font-weight: 900;">상담 지금 시작하기</span>
-        </a>
-    </div>
+    let db = JSON.parse(localStorage.getItem('br_v11')) || { "상담기본": [{t:"안녕하세요, 주식 전문가 상담팀입니다."}] };
+    let curTab = Object.keys(db)[0];
+    let editIdx = -1;
+    let rightClickedTab = "";
+    let dragTabName = ""; 
 
-    <div class="disclaimer">
-      ※ 운영 안내: 상담 가능 시간은 평일 오전 9시부터 오후 6시까지입니다.<br><br>
-      ※ 투자 유의사항: 본 플랫폼에서 제공하는 정보는 참고용이며 최종 결과에 대한 책임은 본인에게 있습니다. 원금 손실 위험이 있음을 인지하시고 신중히 판단하시기 바랍니다.
-    </div>
+    function render() {
+        const list = document.getElementById('list');
+        const tabBar = document.getElementById('tabBar');
+        const search = document.getElementById('searchBox').value.toLowerCase();
+        
+        // 탭 렌더링
+        tabBar.innerHTML = Object.keys(db).map(t => 
+            `<button class="tab-btn ${t===curTab?'active':''}" 
+                draggable="true"
+                onclick="setTab('${t}')" 
+                oncontextmenu="showTabMenu(event, '${t}')"
+                ondragstart="tabDragStart(event, '${t}')"
+                ondragover="event.preventDefault()"
+                ondrop="tabDrop(event, '${t}')">${t}</button>`
+        ).join('');
+        
+        // 리스트 렌더링
+        list.innerHTML = "";
+        (db[curTab] || []).forEach((item, i) => {
+            if(item.t.toLowerCase().includes(search)) {
+                const div = document.createElement('div');
+                div.className = 'macro-item';
+                div.tabIndex = 0;
+                div.draggable = true;
+                div.oncontextmenu = (e) => showItemMenu(e, i);
+                
+                // 더블클릭 시 타이핑 명령 전송
+                div.ondblclick = () => { triggerAutoType(item.t); };
+                
+                div.onkeydown = (e) => { 
+                    if (e.key === "Enter") triggerAutoType(item.t);
+                    if (e.key === "Delete") delItem(i); 
+                };
 
-    <div class="footer">
-      <div class="footer-links">
-        <a href="terms.html">이용약관</a>
-        <a href="privacy.html">개인정보처리방침</a>
-      </div>
-      <div class="footer-info">
-        상담 시간: 평일 09:00 - 18:00 (주말/공휴일 제외) | Copyright © All Rights Reserved.
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function copyId() {
-      const idText = document.getElementById('kakao-id').innerText;
-      const textArea = document.createElement("textarea");
-      textArea.value = idText;
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        alert('상담 아이디(9279q)가 복사되었습니다!\n\n평일 09:00~18:00 사이에 카카오톡에서 검색 후 메시지를 남겨주시면 순차적으로 상담을 도와드립니다.');
-      } catch (err) { console.error('복사 실패'); }
-      document.body.removeChild(textArea);
+                div.innerHTML = `<div class="num">${i+1}</div><div class="macro-content">${item.t}</div>`;
+                
+                // 드래그 앤 드롭 순서 변경
+                div.addEventListener('dragstart', (e) => { 
+                    e.dataTransfer.setData('idx', i); 
+                    e.dataTransfer.setData('type', 'item');
+                    div.style.opacity = '0.4'; 
+                });
+                div.addEventListener('dragover', (e) => e.preventDefault());
+                div.addEventListener('drop', (e) => {
+                    e.stopPropagation();
+                    const type = e.dataTransfer.getData('type');
+                    if(type !== 'item') return;
+                    const from = e.dataTransfer.getData('idx');
+                    const target = db[curTab].splice(from, 1)[0];
+                    db[curTab].splice(i, 0, target);
+                    saveDB(); render();
+                });
+                div.addEventListener('dragend', () => render());
+                list.appendChild(div);
+            }
+        });
     }
-  </script>
+
+    // [핵심 기능] 클립보드 복사 + Electron 타이핑 요청
+    function triggerAutoType(t) {
+        const cleanText = t.trim();
+        // 1. 클립보드에도 복사
+        navigator.clipboard.writeText(cleanText);
+        
+        // 2. Main 프로세스로 타이핑 신호 전송 (main.js에서 수신)
+        ipcRenderer.send('type-text', cleanText);
+        
+        const ts = document.getElementById('toast');
+        ts.innerText = "메신저 클릭하세요! 곧 발사됩니다 🚀";
+        ts.className = 'show';
+        setTimeout(() => ts.className = '', 1500);
+    }
+
+    /* 나머지 관리 기능 (V10.6과 동일하게 유지 및 최적화) */
+    function tabDragStart(e, name) { dragTabName = name; e.dataTransfer.setData('type', 'tab'); }
+    function tabDrop(e, targetName) {
+        e.preventDefault();
+        const type = e.dataTransfer.getData('type');
+        if(type !== 'tab' || dragTabName === targetName) return;
+        const keys = Object.keys(db);
+        const fromIdx = keys.indexOf(dragTabName);
+        const toIdx = keys.indexOf(targetName);
+        keys.splice(fromIdx, 1);
+        keys.splice(toIdx, 0, dragTabName);
+        const newDb = {};
+        keys.forEach(k => { newDb[k] = db[k]; });
+        db = newDb;
+        saveDB(); render();
+    }
+
+    function openModal(idx = -1) {
+        editIdx = idx;
+        document.getElementById('modalOverlay').style.display = 'flex';
+        document.getElementById('modalInp').value = (idx === -1) ? "" : db[curTab][idx].t;
+        document.getElementById('modalInp').focus();
+    }
+    function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
+    function saveItem() {
+        const t = document.getElementById('modalInp').value;
+        if(!t.trim()) return;
+        if(editIdx === -1) db[curTab].push({t:t});
+        else db[curTab][editIdx].t = t;
+        saveDB(); render(); closeModal();
+    }
+
+    function showTabMenu(e, tabName) {
+        e.preventDefault(); rightClickedTab = tabName;
+        const menu = document.getElementById('contextMenu');
+        menu.innerHTML = `<div onclick="editTabPrompt()">📝 탭 이름 수정</div><div onclick="delTabConfirm()" style="color:var(--danger)">❌ 탭 삭제</div>`;
+        displayMenu(e);
+    }
+    function showItemMenu(e, idx) {
+        e.preventDefault();
+        const menu = document.getElementById('contextMenu');
+        menu.innerHTML = `<div onclick="openModal(${idx})">📝 수정하기</div><div onclick="delItem(${idx})" style="color:var(--danger)">❌ 삭제하기</div>`;
+        displayMenu(e);
+    }
+    function displayMenu(e) {
+        const menu = document.getElementById('contextMenu');
+        menu.style.display = 'block'; menu.style.left = e.pageX + 'px'; menu.style.top = e.pageY + 'px';
+    }
+    window.onclick = () => document.getElementById('contextMenu').style.display = 'none';
+
+    function addTabPrompt() {
+        const n = prompt("새 탭 이름?");
+        if(n && !db[n]) { db[n] = []; curTab = n; saveDB(); render(); }
+    }
+    function editTabPrompt() {
+        const n = prompt("수정할 이름?", rightClickedTab);
+        if(n && n !== rightClickedTab && !db[n]) {
+            const newDb = {};
+            Object.keys(db).forEach(k => {
+                if(k === rightClickedTab) newDb[n] = db[k];
+                else newDb[k] = db[k];
+            });
+            db = newDb; curTab = n; saveDB(); render();
+        }
+    }
+    function delTabConfirm() {
+        if(Object.keys(db).length > 1 && confirm(`'${rightClickedTab}' 탭을 삭제할까요?`)) { 
+            delete db[rightClickedTab]; curTab = Object.keys(db)[0]; saveDB(); render(); 
+        }
+    }
+    function setTab(t) { curTab = t; render(); }
+    function delItem(i) { if(confirm("삭제하시겠습니까?")) { db[curTab].splice(i, 1); saveDB(); render(); } }
+    function saveDB() { localStorage.setItem('br_v11', JSON.stringify(db)); }
+    
+    function exportData() {
+        const blob = new Blob([JSON.stringify(db, null, 2)], {type: 'application/json'});
+        const a = document.createElement('a'); 
+        a.href = URL.createObjectURL(blob); 
+        a.download = `blackrock_v11_backup.json`; 
+        a.click();
+    }
+    function importData(input) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = function() {
+            try {
+                const data = JSON.parse(reader.result);
+                if(confirm("기존 데이터에 합칠까요?")) {
+                    for(let k in data) { if(db[k]) db[k] = db[k].concat(data[k]); else db[k] = data[k]; }
+                } else { db = data; curTab = Object.keys(db)[0]; }
+                saveDB(); render();
+            } catch(e) { alert("잘못된 파일입니다."); }
+        };
+        reader.readAsText(file);
+    }
+    render();
+</script>
 </body>
 </html>
