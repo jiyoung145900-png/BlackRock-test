@@ -1,0 +1,23 @@
+{
+  "name": "macro-app",
+  "version": "11.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+    "@nut-tree-fork/nut-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.blackrock.macro",
+    "win": {
+      "target": "portable",
+      "icon": "icon.ico"
+    }
+  }
+}
